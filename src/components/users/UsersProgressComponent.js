@@ -30,9 +30,11 @@ const UsersProgressComponent = () => {
 const styles = StyleSheet.create({
   progressContainer: {
     flex: 1,
+    alignItems: 'center',
     backgroundColor: '#ffffff',
-    padding: 10,
+    padding: 20,
     borderRadius: 10,
+
   },
   userProgress: {
     flexDirection: 'row',
