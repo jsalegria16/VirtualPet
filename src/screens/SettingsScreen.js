@@ -1,11 +1,38 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Image, Dimensions,ScrollView } from 'react-native';
+
+import useNfcWithStorage from '../services/LocalStorage/useNfcWithStorage'; // Importa el nuevo hook
+
+import { useNfc } from '../context/NfcContext'; // Importa el contexto
+
+
 
 const SettingsScreen = () => {
+  // const { tagInfo, nfcError, scanHistory  } = useNfcWithStorage();  // Utiliza el hook personalizado para manejar NFC y almacenamiento
+  const {scanHistory } = useNfc();  // Utiliza el hook personalizado para manejar NFC y almacenamiento
 
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <Text>Settings!</Text>
+      {/* Scroll solo para historial de escaneos */}
+      <ScrollView style={styles.scrollViewHistory}>
+        <View style={styles.historyContainer}>
+          <Text style={styles.historyTitle}>Historial de Escaneos</Text>
+          {scanHistory.length > 0 ? (
+            scanHistory.map((item, index) => (
+              <View key={index} style={styles.historyItem}>
+                <Text style={styles.historyText}>ID: {item.id}</Text>
+                <Text style={styles.historyText}>Fecha: {item.date}</Text>
+              </View>
+            ))
+          ) : (
+            <>
+            <Text style={styles.historyText}>No hay escaneos registrados.</Text>
+            </>
+            
+          )}
+        </View>
+      </ScrollView>
     </View>
   );
 };
@@ -37,6 +64,29 @@ const styles = StyleSheet.create({
     width: screenWidth * 0.8,  // Ajusta el ancho al 80% de la pantalla
     height: screenWidth * 0.8,  // Mantiene una proporción 1:1 (cuadrada)
     resizeMode: 'contain',
+  },
+  scrollViewHistory: {
+    maxHeight: 200, // Establece una altura máxima para el scroll
+    width: '100%',
+  },
+  historyContainer: {
+    width: '90%',
+  },
+  historyTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    color: 'black'
+  },
+  historyItem: {
+    backgroundColor: '#f0f0f0',
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 10,
+  },
+  historyText: {
+    fontSize: 14,
+    color:'black'
   },
 });
 

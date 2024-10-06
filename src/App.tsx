@@ -1,31 +1,29 @@
 import React from 'react';
-import { StatusBar, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
-import AppNavigator from './navigation/AppNavigator';
 import HomeScreen from './screens/HomeScreen';
 import SettingsScreen from './screens/SettingsScreen';
 
+import { NfcProvider } from './context/NfcContext'; // Importa el contexto de NFC
 
-// import PushNotification from 'react-native-push-notification';  // Si usarás notificaciones
 const Tab = createBottomTabNavigator();
+
 
 
 const App = () => {
 
-
   return (
-    // <>
-    //   <StatusBar barStyle="dark-content" />
-    //   <AppNavigator />  {/* Aquí se llama el AppNavigator para manejar la navegación */}
-    // </>
-    <NavigationContainer>
-      <Tab.Navigator >
-        <Tab.Screen name="Tu mascota" component={HomeScreen} options={{ title: 'Esta es Mi cascota saludable' }} />
-        <Tab.Screen name="Settings" component={SettingsScreen} />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <NfcProvider>
+      <NavigationContainer>
+        <Tab.Navigator >
+          <Tab.Screen name="Tu mascota" component={HomeScreen} options={{ title: 'Esta es Mi cascota saludable' }} />
+          <Tab.Screen name="Settings" component={SettingsScreen} />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </NfcProvider>
+
 
   );
 };

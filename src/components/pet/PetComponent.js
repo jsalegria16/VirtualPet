@@ -1,46 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
-import NfcManager, { NfcEvents } from 'react-native-nfc-manager';
+import { View, Text, StyleSheet, Image, Dimensions,   } from 'react-native';
 
-// Pre-step, call this before any NFC operations
-NfcManager.start();
+import useNfcWithStorage from '../../services/LocalStorage/useNfcWithStorage'; // Importa el nuevo hook
+
+import { useNfc } from '../../context/NfcContext'; // Importa el contexto
+
 
 const PetComponent = () => {
-  const [tagInfo, setTagInfo] = useState(null); // Para almacenar la información de la etiqueta
-  const [nfcError, setNfcError] = useState(null); // Estado para almacenar errores de NFC
+  
+  // const { tagInfo, nfcError } = useNfcManager(); // Utiliza el hook para obtener la infomacion del nfc
+  // const { tagInfo, nfcError  } = useNfcWithStorage();  // Utiliza el hook personalizado para manejar NFC y almacenamiento
+  const { tagInfo, nfcError } = useNfc(); // Obtén los valores del contexto
 
-
-  // useEffect que se ejecuta al montar el componente para iniciar el escaneo de NFC
-  useEffect(() => {
-    async function initNfc() {
-      try {
-
-        const isNfcSupported = await NfcManager.isSupported();
-        if (!isNfcSupported) {
-          throw new Error('Este dispositivo/emulador no soporta NFC');
-        }
-
-
-        // Escuchar el evento de descubrimiento de la etiqueta NFC
-        NfcManager.setEventListener(NfcEvents.DiscoverTag, (tag) => {
-          setTagInfo(tag); // Almacenar la información de la etiqueta en el estado
-        });
-
-        await NfcManager.registerTagEvent();
-      } catch (error) {
-        console.warn('Error al inicializar NFC', error);
-        setNfcError('Error al inicializar NFC: ' + error.message);
-      }
-    }
-
-    initNfc();
-
-    // Cleanup cuando se desmonte el componente
-    return () => {
-      NfcManager.setEventListener(NfcEvents.DiscoverTag, null);
-      NfcManager.unregisterTagEvent().catch(() => 0);
-    };
-  }, []);
 
   return (
     <View style={styles.petContainer}>
@@ -65,8 +36,8 @@ const PetComponent = () => {
           {nfcError}
         </Text>
       )}
-  
-       
+
+    
     </View>
   );
 };
@@ -111,6 +82,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',  // Centrar el texto
     maxWidth: '90%',      // Limitar el ancho del texto al 90% del contenedor
   },
+  
 });
 
 export default PetComponent;
