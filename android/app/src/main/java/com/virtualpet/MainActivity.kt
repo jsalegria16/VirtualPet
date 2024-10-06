@@ -2,8 +2,12 @@ package com.virtualpet
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
+import com.facebook.react.ReactRootView;
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.fabricEnabled
 import com.facebook.react.defaults.DefaultReactActivityDelegate
+import com.swmansion.gesturehandler.react.RNGestureHandlerEnabledRootView;
+
+import android.os.Bundle;
 
 class MainActivity : ReactActivity() {
 
@@ -19,4 +23,19 @@ class MainActivity : ReactActivity() {
    */
   override fun createReactActivityDelegate(): ReactActivityDelegate =
       DefaultReactActivityDelegate(this, mainComponentName, fabricEnabled)
+  
+  /**
+   * ME https://reactnavigation.org/docs/getting-started/
+   * ME https://reactnavigation.org/docs/getting-started/
+   */
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(null)
+  }
+
+  /**
+   * ME https://reactnavigation.org/docs/getting-started/
+   * ME https://reactnavigation.org/docs/getting-started/
+   */
+
 }

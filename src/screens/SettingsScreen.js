@@ -1,21 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
 
-const PetComponent = () => {
-
-  // const [petStage, setPetStage] = useState('small');  // Estados: 'small', 'medium', 'large'
-  // const [mood, setMood] = useState('happy');  // Estados: 'happy', 'sad'
-
+const SettingsScreen = () => {
 
   return (
-    <View style={styles.petContainer}>
-      <Text style={styles.text}>Mascota Virtual</Text>
-      {/* Aquí puedes agregar la imagen de la mascota */}
-      <Image 
-        source={require('../../assets/img/mascota.jpeg')}  // Ruta de la imagen
-        style={styles.petImage}  // Estilos para la imagen
-      />
-
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Settings!</Text>
     </View>
   );
 };
@@ -28,8 +18,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#ffffff',
-    marginBottom: 10,
-    marginTop:10,
+    marginBottom: 20,
     borderRadius: 10,
     padding: 10,
   },
@@ -51,4 +40,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PetComponent;
+export default SettingsScreen;

@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   progressContainer: {
     flex: 1,
     backgroundColor: '#ffffff',
-    padding: 20,
+    padding: 10,
     borderRadius: 10,
   },
   userProgress: {
