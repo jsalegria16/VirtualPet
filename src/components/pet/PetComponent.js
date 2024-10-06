@@ -19,7 +19,7 @@ const PetComponent = () => {
 
       {/* Siempre muestra la imagen de la mascota */}
       <Image
-        source={require('../../assets/img/mascota.jpeg')}  // Ruta de la imagen
+        source={require('../../assets/img/mascota_peque.jpeg')}  // Ruta de la imagen
         style={styles.petImage}  // Estilos para la imagen
       />
 
