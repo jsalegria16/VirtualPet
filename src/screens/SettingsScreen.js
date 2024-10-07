@@ -12,8 +12,8 @@ const SettingsScreen = () => {
   const {scanHistory } = useNfc();  // Utiliza el hook personalizado para manejar NFC y almacenamiento
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Settings!</Text>
+    <View style={styles.petContainer}>
+      <Text style={styles.text}>Settings!</Text>
       {/* Scroll solo para historial de escaneos */}
       <ScrollView style={styles.scrollViewHistory}>
         <View style={styles.historyContainer}>
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 24,
     fontWeight: 'bold',
-    color:'red',
+    color:'black',
   },
   // petImage: {
   //   flex:1,

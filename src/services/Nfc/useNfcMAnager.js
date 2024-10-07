@@ -3,6 +3,7 @@
 Este esta afuncionado genial
 El problema ahora es conformar toma de medicamentos y local storage
 ver el archivo useNfcWithStorage.js
+este no lo estoy usando por ahora, ya guardo los registros nfc en el local storage, estoy usando useNfcWithStorage.js
 
 */
 

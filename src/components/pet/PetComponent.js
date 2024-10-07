@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, Dimensions,   } from 'react-native';
 
-import useNfcWithStorage from '../../services/LocalStorage/useNfcWithStorage'; // Importa el nuevo hook
 
 import { useNfc } from '../../context/NfcContext'; // Importa el contexto
 
@@ -10,7 +9,8 @@ const PetComponent = () => {
   
   // const { tagInfo, nfcError } = useNfcManager(); // Utiliza el hook para obtener la infomacion del nfc
   // const { tagInfo, nfcError  } = useNfcWithStorage();  // Utiliza el hook personalizado para manejar NFC y almacenamiento
-  const { tagInfo, nfcError } = useNfc(); // Obtén los valores del contexto
+  const { tagInfo, nfcError, petStage } = useNfc(); // Obtener los valores del contexto NFC, incluyendo el estado de la mascota
+
 
 
   return (
@@ -19,7 +19,13 @@ const PetComponent = () => {
 
       {/* Siempre muestra la imagen de la mascota */}
       <Image
-        source={require('../../assets/img/mascota_peque.jpeg')}  // Ruta de la imagen
+        source={
+          petStage === 'small'
+            ? require('../../assets/img/mascota_peque.jpeg')  // Imagen de la mascota pequeña
+            : petStage === 'medium'
+            ? require('../../assets/img/mascota_medi.jpeg') // Imagen de la mascota mediana
+            : require('../../assets/img/mascota.jpeg')  // Imagen de la mascota grande
+        }
         style={styles.petImage}  // Estilos para la imagen
       />
 
