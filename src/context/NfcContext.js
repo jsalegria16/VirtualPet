@@ -12,11 +12,12 @@ export const useNfc = () => {
 
 export const NfcProvider = ({ children }) => {
     
+  //Logica para mostrar las etiquetas nfc registradas
   const { tagInfo, nfcError, scanHistory } = useNfcWithStorage(); // Hook que obtiene los datos
+
 
   // Lógica para hacer crecer la mascota cuando se detecta una etiqueta NFC
   const { petStage, growPet } = usePetGrowth(); // Hook que maneja el crecimiento de la mascota
-
   // Lógica para hacer crecer la mascota cuando se detecta una etiqueta NFC
   // Conexion entre crecimeinto y lectura nfc
   React.useEffect(() => {

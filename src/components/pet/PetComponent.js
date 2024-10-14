@@ -7,8 +7,6 @@ import { useNfc } from '../../context/NfcContext'; // Importa el contexto
 
 const PetComponent = () => {
   
-  // const { tagInfo, nfcError } = useNfcManager(); // Utiliza el hook para obtener la infomacion del nfc
-  // const { tagInfo, nfcError  } = useNfcWithStorage();  // Utiliza el hook personalizado para manejar NFC y almacenamiento
   const { tagInfo, nfcError, petStage } = useNfc(); // Obtener los valores del contexto NFC, incluyendo el estado de la mascota
 
 
@@ -20,11 +18,12 @@ const PetComponent = () => {
       {/* Siempre muestra la imagen de la mascota */}
       <Image
         source={
-          petStage === 'small'
-            ? require('../../assets/img/mascota_peque.jpeg')  // Imagen de la mascota pequeña
-            : petStage === 'medium'
-            ? require('../../assets/img/mascota_medi.jpeg') // Imagen de la mascota mediana
-            : require('../../assets/img/mascota.jpeg')  // Imagen de la mascota grande
+          petStage === 'small' ? 
+            require('../../assets/img/mascota_peque.jpeg')  // Imagen de la mascota pequeña
+          : petStage === 'medium' ? 
+            require('../../assets/img/mascota_medi.jpeg') // Imagen de la mascota mediana
+          : 
+            require('../../assets/img/mascota.jpeg')  // Imagen de la mascota grande
         }
         style={styles.petImage}  // Estilos para la imagen
       />
