@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image, Dimensions,ScrollView } from 'react-native';
+import React, { useEffect } from 'react';
+import { View, Text, StyleSheet, Image, Dimensions, ScrollView } from 'react-native';
 
 
 import { useNfc } from '../../context/NfcContext'; // Importa el contexto
@@ -8,11 +8,15 @@ import { useNfc } from '../../context/NfcContext'; // Importa el contexto
 
 const MedicationHistory = () => {
 
-  const {medications } = useNfc(); // Cotexto // Utiliza el hook personalizado para manejar NFC y almacenamiento
+  const { loadMedRegiment, medications } = useNfc(); // Cotexto // Utiliza el hook personalizado para manejar NFC y almacenamiento
+
+  useEffect(() => {
+    loadMedRegiment();
+  }, []);
 
   return (
     <View style={styles.petContainer}>
-          <Text style={styles.historyTitle}>Lista de medicamentos</Text>
+      <Text style={styles.historyTitle}>Lista de medicamentos</Text>
       <ScrollView style={styles.scrollViewHistory}>
         <View style={styles.historyContainer}>
           {medications.length > 0 ? (
@@ -24,12 +28,12 @@ const MedicationHistory = () => {
             ))
           ) : (
             <>
-            <Text style={styles.historyText}>No medicamentos registrados.</Text>
+              <Text style={styles.historyText}>No medicamentos registrados.</Text>
             </>
-            
+
           )}
         </View>
-      </ScrollView>  
+      </ScrollView>
     </View>
   );
 };
@@ -45,12 +49,12 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     borderRadius: 10,
     padding: 10,
-  
+
   },
   text: {
     fontSize: 24,
     fontWeight: 'bold',
-    color:'black',
+    color: 'black',
   },
   scrollViewHistory: {
     maxHeight: 200, // Establece una altura máxima para el scroll
@@ -73,7 +77,7 @@ const styles = StyleSheet.create({
   },
   historyText: {
     fontSize: 14,
-    color:'black'
+    color: 'black'
   },
 });
 

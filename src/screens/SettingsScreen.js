@@ -19,7 +19,7 @@ const SettingsScreen = () => {
 
       <MedicationHistory />
 
-      {/* <ScanHistory/> */}
+      {/* <ScanHistory /> */}
     </View>
 
 
