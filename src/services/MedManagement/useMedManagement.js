@@ -2,7 +2,8 @@ import { useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-// Hook personalizado para manejar NFC y almacenar datos en AsyncStorage
+// Hook personalizado para manejar NFC y almacenar datos en AsyncStorage.
+// NECesito crear las notificaciones y arreglar lo de la fecha y la letra en el form para los celulares :)
 const useMedManagement = () => {
 
   const [medName, setMedName] = useState('');
@@ -39,10 +40,10 @@ const useMedManagement = () => {
     } catch (error) {
       console.warn('Error al cargar el regimen de medicamentos:', error);
     }
-  
+
   };
 
-  return {medName,setMedName,times,setTimes, handleAddMedication, loadMedRegiment, medications };
+  return { medName, setMedName, times, setTimes, handleAddMedication, loadMedRegiment, medications };
 };
 
 export default useMedManagement;
