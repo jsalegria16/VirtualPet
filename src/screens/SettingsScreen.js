@@ -16,17 +16,9 @@ const SettingsScreen = () => {
     <View style={styles.container}>
       {/* para el formularios */}
       <AddMedicationForm />
-
       <MedicationHistory />
-
       {/* <ScanHistory /> */}
     </View>
-
-
-
-
-
-
 
   );
 };

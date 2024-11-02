@@ -4,8 +4,6 @@ import { View, Text, StyleSheet, Image, Dimensions, ScrollView } from 'react-nat
 
 import { useNfc } from '../../context/NfcContext'; // Importa el contexto
 
-
-
 const MedicationHistory = () => {
 
   const { loadMedRegiment, medications } = useNfc(); // Cotexto // Utiliza el hook personalizado para manejar NFC y almacenamiento
@@ -46,9 +44,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#ffffff',
-    marginBottom: 5,
+    margi: 5,
     borderRadius: 10,
-    padding: 10,
+    padding: 0,
+    paddingLeft: 10
 
   },
   text: {

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "118498941716",
+    "project_id": "virtualpet-2024",
+    "storage_bucket": "virtualpet-2024.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:118498941716:android:77d35b957613877e990001",
+        "android_client_info": {
+          "package_name": "com.virtualpet"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcKpGq8IIRWqDzZrvYsEnj_Rcu6RBs5sw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

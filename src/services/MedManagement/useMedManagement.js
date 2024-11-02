@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import addConfirmation from '../firebase/add_medication';
 
 
 // Hook personalizado para manejar NFC y almacenar datos en AsyncStorage.
@@ -7,7 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const useMedManagement = () => {
 
   const [medName, setMedName] = useState('');
-  const [times, setTimes] = useState(['']); // Inicialmente vacío, puedes agregar múltiples horarios
+  const [times, setTimes] = useState(''); // Inicialmente vacío, puedes agregar múltiples horarios
 
   const [medications, setMedications] = useState([]);
 
@@ -21,8 +22,13 @@ const useMedManagement = () => {
       medications.push(newMed);
 
       await AsyncStorage.setItem('medications', JSON.stringify(medications));
+
+      //Vaamos aa enviar para firebase too
+      addConfirmation('usuario1', times, false)
+      ///
+
       setMedName('');
-      setTimes(['']);
+      setTimes('');
       alert('Medicamento agregado');
       loadMedRegiment()
     } catch (error) {
@@ -42,6 +48,8 @@ const useMedManagement = () => {
     }
 
   };
+
+  //funcion para eleminar  medicamentos
 
   return { medName, setMedName, times, setTimes, handleAddMedication, loadMedRegiment, medications };
 };
