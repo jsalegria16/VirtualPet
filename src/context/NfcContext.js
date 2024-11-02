@@ -1,7 +1,7 @@
 import React, { createContext, useContext } from 'react';
 
 import useNfcWithStorage from '../services/LocalStorage/useNfcWithStorage'; // El hook que manejamos anteriormente para enviar al storage los registros nfc
-import usePetGrowth from '../services/usePetGrowth/usePetGrowth'; // Importa el hook para manejar el crecimiento de la mascota
+import usePetGrowth from '../services/usePetGrowth_LocalStor/usePetGrowth'; // Importa el hook para manejar el crecimiento de la mascota
 import useMedManagement from '../services/MedManagement/useMedManagement';
 
 const NfcContext = createContext();
@@ -11,7 +11,7 @@ export const useNfc = () => {
 };
 
 export const NfcProvider = ({ children }) => {
-    
+
   //Logica para mostrar las etiquetas nfc registradas
   const { tagInfo, nfcError, scanHistory } = useNfcWithStorage(); // Hook que obtiene los datos
 
@@ -29,32 +29,32 @@ export const NfcProvider = ({ children }) => {
 
 
   // Logica para agregar un medicamento desde la ventana de confs
-  const {medName,setMedName,times,setTimes, handleAddMedication, loadMedRegiment, medications } = useMedManagement();
+  const { medName, setMedName, times, setTimes, handleAddMedication, loadMedRegiment, medications } = useMedManagement();
 
 
 
   return (
     <NfcContext.Provider value={{
 
-        //Historial de registros nfc
-         tagInfo, 
-         nfcError, 
-         scanHistory,
+      //Historial de registros nfc
+      tagInfo,
+      nfcError,
+      scanHistory,
 
-        //PAra el crecimento de la mascota
-         petStage,      // Proporcionamos el estado actual de la mascota
-         growPet,        // Proporcionamos la función para hacer crecer la mascota (si quieres usarla de forma independiente en otro lugar)
+      //PAra el crecimento de la mascota
+      petStage,      // Proporcionamos el estado actual de la mascota
+      growPet,        // Proporcionamos la función para hacer crecer la mascota (si quieres usarla de forma independiente en otro lugar)
 
-        //Para la agregacion de medicamentos 
-         medName,
-         setMedName,
-         times,
-         setTimes,
-         handleAddMedication,
-         loadMedRegiment,
-         medications,
+      //Para la agregacion de medicamentos 
+      medName,
+      setMedName,
+      times,
+      setTimes,
+      handleAddMedication,
+      loadMedRegiment,
+      medications,
 
-        }}>
+    }}>
       {children}
     </NfcContext.Provider>
   );

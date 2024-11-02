@@ -58,9 +58,11 @@ const styles = StyleSheet.create({
   scrollViewHistory: {
     maxHeight: 200, // Establece una altura máxima para el scroll
     width: '100%',
+    alignSelf: 'center'
   },
   historyContainer: {
     width: '90%',
+    alignSelf: 'center'
   },
   historyTitle: {
     fontSize: 18,

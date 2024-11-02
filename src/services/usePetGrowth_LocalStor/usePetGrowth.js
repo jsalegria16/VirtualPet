@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import growPet_online from '../firebase/grow_pet';
 
 // Hook para manejar el crecimiento de la mascota
 const usePetGrowth = () => {
@@ -18,8 +19,8 @@ const usePetGrowth = () => {
     }
   };
 
-   // Función para guardar el estado de la mascota en AsyncStorage
-   const savePetState = async (newStage) => {
+  // Función para guardar el estado de la mascota en AsyncStorage
+  const savePetState = async (newStage) => {
     try {
       await AsyncStorage.setItem('petStage', newStage); // Guardar el estado actual en AsyncStorage
     } catch (error) {
@@ -40,6 +41,9 @@ const usePetGrowth = () => {
 
     setPetStage(newStage); // Actualizar el estado local
     savePetState(newStage); // Guardar el nuevo estado en AsyncStorage
+    // Guaarademos esto en firebase
+    growPet_online(newStage);
+    //
   };
 
   // Cargar el estado de la mascota cuando se inicia la app
