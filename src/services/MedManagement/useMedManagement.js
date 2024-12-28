@@ -24,7 +24,7 @@ const useMedManagement = () => {
       await AsyncStorage.setItem('medications', JSON.stringify(medications));
 
       //Vaamos aa enviar para firebase too
-      addConfirmation(userId, times, false)
+      addConfirmation(userId, times, false, medName)
       ///
 
       setMedName('');

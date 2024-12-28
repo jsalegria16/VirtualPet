@@ -1,3 +1,13 @@
+# To do 
+- hacer el user id
+- validacion y creciomeinto de la mascota 
+  - Aqui franjas horarias
+  - CArpeta user med validation en service
+  - 
+
+
+
+
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
 # Getting Started
