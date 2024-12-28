@@ -4,6 +4,8 @@ import useNfcWithStorage from '../services/LocalStorage/useNfcWithStorage'; // E
 import usePetGrowth from '../services/usePetGrowth_LocalStor/usePetGrowth'; // Importa el hook para manejar el crecimiento de la mascota
 import useMedManagement from '../services/MedManagement/useMedManagement';
 
+import useUserId from '../services/createUserID/useUserId'
+
 const NfcContext = createContext();
 
 export const useNfc = () => {
@@ -32,6 +34,19 @@ export const NfcProvider = ({ children }) => {
   const { medName, setMedName, times, setTimes, handleAddMedication, loadMedRegiment, medications } = useMedManagement();
 
 
+  //Logica para hacer un ID unico de usuario.
+  /*
+  Creo hoook, lo importo 
+    Variable ID solamente
+    ya uso esto en el useMEdManagement
+    Cuidaado con el updatret o el set
+    le paso userId al hook de useMEdmanagement
+    
+  Otra opcion es crearlo dentro del hook de medications managements
+  
+  */
+  const { userId } = useUserId();
+
 
   return (
     <NfcContext.Provider value={{
@@ -53,6 +68,9 @@ export const NfcProvider = ({ children }) => {
       handleAddMedication,
       loadMedRegiment,
       medications,
+
+      //Para la generacion de ID unico de usuario
+      userId
 
     }}>
       {children}

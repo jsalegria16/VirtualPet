@@ -13,7 +13,7 @@ const useMedManagement = () => {
   const [medications, setMedications] = useState([]);
 
   //Funcion para agregar los medicamentos
-  const handleAddMedication = async () => {
+  const handleAddMedication = async (userId) => {
     try {
       const existingMeds = await AsyncStorage.getItem('medications');
       let medications = existingMeds ? JSON.parse(existingMeds) : [];
@@ -24,7 +24,7 @@ const useMedManagement = () => {
       await AsyncStorage.setItem('medications', JSON.stringify(medications));
 
       //Vaamos aa enviar para firebase too
-      addConfirmation('usuario1', times, false)
+      addConfirmation(userId, times, false)
       ///
 
       setMedName('');
