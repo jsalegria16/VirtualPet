@@ -14,6 +14,12 @@ const useMedManagement = () => {
 
   //Funcion para agregar los medicamentos
   const handleAddMedication = async (userId) => {
+
+    if (!medName.trim() || !times.length) {
+      alert('Por favor, completa todos los campos.');
+      return;
+    }
+
     try {
       const existingMeds = await AsyncStorage.getItem('medications');
       let medications = existingMeds ? JSON.parse(existingMeds) : [];

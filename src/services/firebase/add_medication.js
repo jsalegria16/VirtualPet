@@ -1,6 +1,7 @@
 import firestore from '@react-native-firebase/firestore';
 
 const addConfirmation = async (userId, time, confirmationStatus, medicationName) => {
+
     const referencia = firestore().collection('Usuarios').doc(userId);
 
     try {

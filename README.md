@@ -1,7 +1,8 @@
 # To do 
 - hacer el user id
+  - Sincronizar lista de medicamentos en local con lo online(Por ahora puede esperar)
 - validacion y creciomeinto de la mascota 
-  - Aqui franjas horarias
+  - Aqui validara franjas horarias
   - CArpeta user med validation en service
   - 
 

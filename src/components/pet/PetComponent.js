@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Image, Dimensions,   } from 'react-native';
+import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity } from 'react-native';
 
 
 import { useNfc } from '../../context/NfcContext'; // Importa el contexto
 
 
 const PetComponent = () => {
-  
-  const { tagInfo, nfcError, petStage } = useNfc(); // Obtener los valores del contexto NFC, incluyendo el estado de la mascota
+
+  const { tagInfo, nfcError, petStage, growPet } = useNfc(); // Obtener los valores del contexto NFC, incluyendo el estado de la mascota
 
 
 
@@ -16,7 +16,7 @@ const PetComponent = () => {
       <Text style={styles.text}>Mascota Virtual</Text>
 
       {/* Siempre muestra la imagen de la mascota */}
-      <Image
+      {/* <Image
         source={
           petStage === 'small' ? 
             require('../../assets/img/mascota_peque.jpeg')  // Imagen de la mascota pequeña
@@ -26,7 +26,21 @@ const PetComponent = () => {
             require('../../assets/img/mascota.jpeg')  // Imagen de la mascota grande
         }
         style={styles.petImage}  // Estilos para la imagen
-      />
+      /> */}
+
+      <TouchableOpacity onPress={growPet}>
+        <Image
+          source={
+            petStage === 'small' ?
+              require('../../assets/img/mascota_peque.jpeg')  // Imagen de la mascota pequeña
+              : petStage === 'medium' ?
+                require('../../assets/img/mascota_medi.jpeg') // Imagen de la mascota mediana
+                :
+                require('../../assets/img/mascota.jpeg')  // Imagen de la mascota grande
+          }
+          style={styles.petImage}  // Estilos para la imagen
+        />
+      </TouchableOpacity>
 
       {/* Si se ha detectado una etiqueta NFC, muestra un mensaje */}
       {tagInfo && (
@@ -42,7 +56,7 @@ const PetComponent = () => {
         </Text>
       )}
 
-    
+
     </View>
   );
 };
@@ -87,7 +101,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',  // Centrar el texto
     maxWidth: '90%',      // Limitar el ancho del texto al 90% del contenedor
   },
-  
+
 });
 
 export default PetComponent;
