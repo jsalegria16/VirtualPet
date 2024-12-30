@@ -5,6 +5,7 @@ import firestore from '@react-native-firebase/firestore';
 
 // Hook para manejar el crecimiento de la mascota
 const usePetGrowth = () => {
+
   const [petStage, setPetStage] = useState('small'); // Estados: small, medium, large
 
   // Cargar el estado de la mascota desde Firestore o Local Storage
@@ -41,7 +42,7 @@ const usePetGrowth = () => {
   // Sincronización en tiempo real con Firestore
   useEffect(() => {
     const loadPetState = async () => {
-      await loadState_online; // Cargar desde Firestore
+      loadState_online; // Cargar desde Firestore
       // Intenta retornar esto si no funciona
     };
     loadPetState(); // Cargar el estado al montar el componente
@@ -68,6 +69,7 @@ const usePetGrowth = () => {
 
     return () => subscriber(); // Limpieza del listener al desmontar
   }, []); // 
+
   return { petStage, growPet }; // Retornamos el estado actual de la mascota y la función para crecerla
 };
 

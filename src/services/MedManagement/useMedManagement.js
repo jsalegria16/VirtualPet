@@ -1,19 +1,49 @@
 import { useState } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import firestore from '@react-native-firebase/firestore';
+import { useEffect } from 'react';
 import addConfirmation from '../firebase/add_medication';
+import getMedications from '../firebase/get_medications';
 
 
 // Hook personalizado para manejar NFC y almacenar datos en AsyncStorage.
 // NECesito crear las notificaciones y arreglar lo de la fecha y la letra en el form para los celulares :)
-const useMedManagement = () => {
+const useMedManagement = (userId) => {
 
   const [medName, setMedName] = useState('');
   const [times, setTimes] = useState(''); // Inicialmente vacío, puedes agregar múltiples horarios
 
   const [medications, setMedications] = useState([]);
 
+
+  // Función para cargar medicamentos en tiempo real desde Firebase
+  const subscribeToMedications = () => {
+    const referencia = firestore().collection('Usuarios').doc(userId);
+
+    const unsubscribe = referencia.onSnapshot((docSnapshot) => {
+      if (docSnapshot.exists) {
+        const confirmaciones = docSnapshot.data()?.confirmaciones || {};
+        const medicationsList = Object.keys(confirmaciones).map((id) => ({
+          id,
+          ...confirmaciones[id],
+        }));
+        setMedications(medicationsList);
+      } else {
+        console.warn('No se encontró el documento del usuario en Firebase.');
+      }
+    });
+
+    return unsubscribe; // Devuelve la función para cancelar la suscripción
+  };
+
+  // Suscribirse a cambios en Firebase al montar el componente
+  useEffect(() => {
+    const unsubscribe = subscribeToMedications();
+    return () => unsubscribe(); // Cancelar la suscripción al desmontar
+  }, [userId]);
+
+
   //Funcion para agregar los medicamentos
-  const handleAddMedication = async (userId) => {
+  const handleAddMedication = async () => {
 
     if (!medName.trim() || !times.length) {
       alert('Por favor, completa todos los campos.');
@@ -21,22 +51,17 @@ const useMedManagement = () => {
     }
 
     try {
-      const existingMeds = await AsyncStorage.getItem('medications');
-      let medications = existingMeds ? JSON.parse(existingMeds) : [];
 
-      const newMed = { name: medName, times: times };
-      medications.push(newMed);
+      //Vamos a enviar para firebase 
+      await addConfirmation(userId, times, false, medName)
+      //addConfirmation(userId, times.toString(), false, medName)
 
-      await AsyncStorage.setItem('medications', JSON.stringify(medications));
-
-      //Vaamos aa enviar para firebase too
-      addConfirmation(userId, times, false, medName)
-      ///
-
-      setMedName('');
       setTimes('');
+      setMedName('');
       alert('Medicamento agregado');
-      loadMedRegiment()
+      // await loadMedRegiment()
+
+
     } catch (error) {
       console.log('Error al agregar medicamento:', error);
     }
@@ -44,18 +69,18 @@ const useMedManagement = () => {
 
   // Función para cargar los medicamentos desde el AsyncStorage
   const loadMedRegiment = async () => {
+
+    //Cargar desde firebase
     try {
-      const existingMeds = await AsyncStorage.getItem('medications');
-      if (existingMeds) {
-        setMedications(JSON.parse(existingMeds));
-      }
+      const medicationsFromFirebase = await getMedications(userId);
+      console.log('Medicamentos:', medicationsFromFirebase);
+      setMedications(medicationsFromFirebase);
     } catch (error) {
       console.warn('Error al cargar el regimen de medicamentos:', error);
     }
 
   };
 
-  //funcion para eleminar  medicamentos
 
   return { medName, setMedName, times, setTimes, handleAddMedication, loadMedRegiment, medications };
 };

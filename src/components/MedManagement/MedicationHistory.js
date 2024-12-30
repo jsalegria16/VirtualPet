@@ -20,8 +20,10 @@ const MedicationHistory = () => {
           {medications.length > 0 ? (
             medications.map((item, index) => (
               <View key={index} style={styles.historyItem}>
-                <Text style={styles.historyText}>ID: {item.name}</Text>
-                <Text style={styles.historyText}>Fecha: {item.times}</Text>
+                <Text style={styles.historyText}>ID: {item.medicamento}</Text>
+                <Text style={styles.historyText}>
+                  Hora: {new Date(item.hora).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}
+                </Text>
               </View>
             ))
           ) : (

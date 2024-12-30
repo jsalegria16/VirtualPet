@@ -1,13 +1,4 @@
 # To do 
-- hacer el user id
-  - Sincronizar lista de medicamentos en local con lo online(Por ahora puede esperar)
-- validacion y creciomeinto de la mascota 
-  - Aqui validara franjas horarias
-  - CArpeta user med validation en service
-  - 
-
-
-
 
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 

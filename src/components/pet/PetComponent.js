@@ -7,8 +7,30 @@ import { useNfc } from '../../context/NfcContext'; // Importa el contexto
 
 const PetComponent = () => {
 
-  const { tagInfo, nfcError, petStage, growPet } = useNfc(); // Obtener los valores del contexto NFC, incluyendo el estado de la mascota
+  const { tagInfo, nfcError, petStage, growPet, medications, userId, validateAndGrowPet, updateMedicationStatus, confirmationTime, medicationId, checkAndSetConfirmationTime } = useNfc(); // Obtener los valores del contexto NFC, incluyendo el estado de la mascota
 
+  const handlePress = async () => {
+    // Lógica adicional
+    console.log('Pet pressed');
+    // Llamada a la función original
+    // growPet();
+    // validateAndGrowPet(growPet);
+
+    await checkAndSetConfirmationTime();
+    console.log('La nueva confirmationTime entes del if:', confirmationTime);
+    console.log('El  medicationId aantes de entrar al If:', medicationId);
+
+
+    if (confirmationTime && medicationId) {
+
+      // Actualiza el estado del medicamento para el usuario
+      updateMedicationStatus(userId, medicationId);
+
+      // growPet(); // Hacemos crecer la mascota cuando se detecta una etiqueta NFC
+      // validateAndGrowPet(growPet); // Validamos la toma de medicamentos de todos al detectar una etiqueta NFC
+    }
+
+  };
 
 
   return (
@@ -28,7 +50,7 @@ const PetComponent = () => {
         style={styles.petImage}  // Estilos para la imagen
       /> */}
 
-      <TouchableOpacity onPress={growPet}>
+      <TouchableOpacity onPress={handlePress}>
         <Image
           source={
             petStage === 'small' ?
