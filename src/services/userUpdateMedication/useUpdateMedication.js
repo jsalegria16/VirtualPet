@@ -1,7 +1,8 @@
 import firestore from '@react-native-firebase/firestore';
 
-const useUpdateMedication = () => {
-    const updateMedicationStatus = async (userId, medicationId) => {
+const useUpdateMedication = (userId, medicationId) => {
+
+    const updateMedicationStatus = async () => {
         try {
 
             const referencia = firestore().collection('Usuarios').doc(userId);

@@ -14,7 +14,6 @@ const addConfirmation = async (userId, time, confirmationStatus, medicationName)
             const confirmaciones = {
                 [id]: { // Usar un identificador único
                     hora: time,
-                    horaBonita: new Date(time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }),
                     medicamento: medicationName,
                     status: confirmationStatus, // Asocia el medicamento con su estado
                 },
@@ -30,7 +29,6 @@ const addConfirmation = async (userId, time, confirmationStatus, medicationName)
                 ...existingConfirmations,
                 [id]: { // Usar un identificador único
                     hora: time,
-                    horaBonita: new Date(time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }),
                     medicamento: medicationName,
                     status: confirmationStatus,
                 },

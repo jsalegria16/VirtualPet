@@ -22,7 +22,8 @@ const MedicationHistory = () => {
               <View key={index} style={styles.historyItem}>
                 <Text style={styles.historyText}>ID: {item.medicamento}</Text>
                 <Text style={styles.historyText}>
-                  Hora: {new Date(item.hora).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}
+                  {/* Hora: {new Date(item.hora).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })} */}
+                  Hora: {item.hora}
                 </Text>
               </View>
             ))

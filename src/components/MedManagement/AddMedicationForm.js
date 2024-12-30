@@ -12,7 +12,7 @@ const AddMedicationForm = () => {
     const currentTime = selectedTime || times;
     setShowTimePicker(false);
     // setTimes(currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
-    setTimes(currentTime.toISOString());
+    setTimes(currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
   };
 
   return (
@@ -30,7 +30,8 @@ const AddMedicationForm = () => {
         <TouchableOpacity style={styles.input} onPress={() => setShowTimePicker(true)}>
           <Text style={styles.text}>
             {/* {times ? times.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'Seleccionar hora'} */}
-            {times ? new Date(times).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'Seleccionar hora'}
+            {/* {times ? new Date(times).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'Seleccionar hora'} */}
+            {times ? times : 'Seleccionar hora'}
           </Text>
         </TouchableOpacity>
 

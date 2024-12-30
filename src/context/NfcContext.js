@@ -18,35 +18,26 @@ export const useNfc = () => {
 export const NfcProvider = ({ children }) => {
 
   //Logica para hacer un ID unico de usuario.
-  /*
-  Creo hoook, lo importo 
-    Variable ID solamente
-    ya uso esto en el useMEdManagement
-    Cuidaado con el updatret o el set
-    le paso userId al hook de useMEdmanagement
-    
-  Otra opcion es crearlo dentro del hook de medications managements
-  
-  */
   const { userId } = useUserId();
 
   //Logica para mostrar las etiquetas nfc registradas
   const { tagInfo, nfcError, scanHistory } = useNfcWithStorage(); // Hook que obtiene los datos
 
   // Lógica para hacer crecer la mascota cuando se detecta una etiqueta NFC
-  const { petStage, growPet } = usePetGrowth(); // Hook que maneja el crecimiento de la mascota
-  // Lógica para hacer crecer la mascota cuando se detecta una etiqueta NFC
   // Conexion entre crecimeinto y lectura nfc
-
-  // Logica relacionada con las validaciones de la tomaa del medicamento
-  const { validateAndGrowPet } = useDailyValidation(); // Hook que maneja la validación de la toma de medicamentos
-
-  const { updateMedicationStatus } = useUpdateMedication(); // Inicializa el hook para actualizar medicamentos de un solo usuario
+  const { petStage, growPet } = usePetGrowth(); // Hook que maneja el crecimiento de la mascota
 
   // Logica para agregar un medicamento desde la ventana de confs
   const { medName, setMedName, times, setTimes, handleAddMedication, loadMedRegiment, medications } = useMedManagement(userId);
 
+  // Logica de confirmacion individual de la toma de medicamentos
+  //Hook para manejar hora exacta de confirmacion de la toma de medicamentos
   const { confirmationTime, checkAndSetConfirmationTime, medicationId } = useConfirmationTime(userId);
+  //Hook para realizar la actualizaciond e confoirmacion de la toma de medicamento individual
+  const { updateMedicationStatus } = useUpdateMedication(userId, medicationId); // Inicializa el hook para actualizar medicamentos de un solo usuario
+
+  // Logica relacionada con las validaciones grupales de la toma del medicamento y crecimiento de la mascota
+  const { validateAndGrowPet } = useDailyValidation(); // Hook que maneja la validación de la toma de medicamentos
 
   //Entrada a la aplicaicion y funcionamiento.
   React.useEffect(() => {
@@ -60,7 +51,7 @@ export const NfcProvider = ({ children }) => {
         updateMedicationStatus(userId, confirmationTime, medications.find(m => m.times === confirmationTime)?.name);
 
         // growPet(); // Hacemos crecer la mascota cuando se detecta una etiqueta NFC
-        validateAndGrowPet(growPet); // Validamos la toma de medicamentos de todos al detectar una etiqueta NFC
+        //validateAndGrowPet(growPet); // Validamos la toma de medicamentos de todos al detectar una etiqueta NFC
       }
 
     }
@@ -71,6 +62,8 @@ export const NfcProvider = ({ children }) => {
 
   return (
     <NfcContext.Provider value={{
+      //Para la generacion de ID unico de usuario
+      userId,
 
       //Historial de registros nfc
       tagInfo,
@@ -90,20 +83,16 @@ export const NfcProvider = ({ children }) => {
       loadMedRegiment,
       medications,
 
-      //Para la generacion de ID unico de usuario
-      userId,
-
-      // para la validacion de la toma de medicamentos de todos
-      validateAndGrowPet,
+      //Hora e Idmedication de confirmacion de la toma de medicamentos 
+      confirmationTime,
+      checkAndSetConfirmationTime,
+      medicationId,
 
       // Para pasar a true la confirmacion de la toma de medicamentos de cada usuaario
       updateMedicationStatus,
 
-      //Hora e Idmedication de confirmacion de la toma de medicamentos 
-      confirmationTime,
-      medicationId,
-      checkAndSetConfirmationTime,
-
+      // para la validacion de la toma de medicamentos de todos
+      validateAndGrowPet,
 
     }}>
       {children}
