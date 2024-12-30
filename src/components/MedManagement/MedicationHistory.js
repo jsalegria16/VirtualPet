@@ -25,6 +25,9 @@ const MedicationHistory = () => {
                   {/* Hora: {new Date(item.hora).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })} */}
                   Hora: {item.hora}
                 </Text>
+                <Text style={styles.historyText}>
+                  Estado: {item.status ? 'Confirmado' : 'No confirmado'}
+                </Text>
               </View>
             ))
           ) : (

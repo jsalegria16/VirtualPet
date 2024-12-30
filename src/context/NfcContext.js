@@ -31,31 +31,41 @@ export const NfcProvider = ({ children }) => {
   const { medName, setMedName, times, setTimes, handleAddMedication, loadMedRegiment, medications } = useMedManagement(userId);
 
   // Logica de confirmacion individual de la toma de medicamentos
-  //Hook para manejar hora exacta de confirmacion de la toma de medicamentos
-  const { confirmationTime, checkAndSetConfirmationTime, medicationId } = useConfirmationTime(userId);
   //Hook para realizar la actualizaciond e confoirmacion de la toma de medicamento individual
-  const { updateMedicationStatus } = useUpdateMedication(userId, medicationId); // Inicializa el hook para actualizar medicamentos de un solo usuario
+  const { updateMedicationStatus } = useUpdateMedication(); // Inicializa el hook para actualizar medicamentos de un solo usuario
+  //Hook para manejar hora exacta de confirmacion de la toma de medicamentos,e s llamado dentro de updateMedicationStatus >>
+  // const checkAndSetConfirmationTime = async (updateMedicationStatus) ...
+
+  const { checkAndSetConfirmationTime } = useConfirmationTime(userId);
 
   // Logica relacionada con las validaciones grupales de la toma del medicamento y crecimiento de la mascota
   const { validateAndGrowPet } = useDailyValidation(); // Hook que maneja la validación de la toma de medicamentos
 
   //Entrada a la aplicaicion y funcionamiento.
   React.useEffect(() => {
+    // if (tagInfo) {
+
+    //   checkAndSetConfirmationTime().then(() => {
+
+    //     if (confirmationTime) {
+
+    //       // Actualiza el estado del medicamento para el usuario
+    //       updateMedicationStatus();
+
+    //       // growPet(); // Hacemos crecer la mascota cuando se detecta una etiqueta NFC
+    //       //validateAndGrowPet(growPet); // Validamos la toma de medicamentos de todos al detectar una etiqueta NFC
+    //     }
+
+    //   })
+
+    // }
     if (tagInfo) {
-
-      checkAndSetConfirmationTime();
-
-      if (confirmationTime) {
-
-        // Actualiza el estado del medicamento para el usuario
-        updateMedicationStatus(userId, confirmationTime, medications.find(m => m.times === confirmationTime)?.name);
-
-        // growPet(); // Hacemos crecer la mascota cuando se detecta una etiqueta NFC
-        //validateAndGrowPet(growPet); // Validamos la toma de medicamentos de todos al detectar una etiqueta NFC
-      }
-
+      (async () => {
+        await checkAndSetConfirmationTime(updateMedicationStatus); // Pasa la función como argumento
+      })();
     }
-  }, [tagInfo, confirmationTime]); // Se dispara cada vez que cambia la etiqueta NFC y la fecha de confirmación
+
+  }, [tagInfo]); // Se dispara cada vez que cambia la etiqueta NFC y la fecha de confirmación
 
 
 
@@ -84,9 +94,7 @@ export const NfcProvider = ({ children }) => {
       medications,
 
       //Hora e Idmedication de confirmacion de la toma de medicamentos 
-      confirmationTime,
       checkAndSetConfirmationTime,
-      medicationId,
 
       // Para pasar a true la confirmacion de la toma de medicamentos de cada usuaario
       updateMedicationStatus,
