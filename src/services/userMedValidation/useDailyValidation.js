@@ -4,6 +4,7 @@ import { useNfc } from '../../context/NfcContext'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 //PAra validar que todos los usuarios hayan tomado sus medicamentos
+// 
 
 const useDailyValidation = () => {
 
