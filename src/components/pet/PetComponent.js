@@ -7,13 +7,24 @@ import { useNfc } from '../../context/NfcContext'; // Importa el contexto
 
 const PetComponent = () => {
 
-  const { tagInfo, nfcError, petStage, validateAndGrowPet, updateMedicationStatus, checkAndSetConfirmationTime } = useNfc(); // Obtener los valores del contexto NFC, incluyendo el estado de la mascota
+  const { tagInfo, nfcError, petStage, growPet, validateAndGrowPet, updateMedicationStatus, checkAndSetConfirmationTime } = useNfc(); // Obtener los valores del contexto NFC, incluyendo el estado de la mascota
 
   const handlePress = async () => {
     // Lógica adicional
     console.log('Pet pressed');
     await checkAndSetConfirmationTime(updateMedicationStatus); // Pasa la función como argumento
     console.log('Lógica completada.');
+
+    try {
+      // Lógica adicional
+      console.log('Pet pressed');
+      await checkAndSetConfirmationTime(updateMedicationStatus); // Pasa la función como argumento
+      // Valida si todos los usuarios completaron sus medicamentos
+      await validateAndGrowPet(growPet);
+
+    } catch (error) {
+      console.error('Error en la lógica de handlePress:', error);
+    }
 
   };
 

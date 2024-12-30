@@ -61,7 +61,8 @@ export const NfcProvider = ({ children }) => {
     // }
     if (tagInfo) {
       (async () => {
-        await checkAndSetConfirmationTime(updateMedicationStatus); // Pasa la función como argumento
+        await checkAndSetConfirmationTime(updateMedicationStatus); // Actualiza el estado del medicamento para el usuario
+        await validateAndGrowPet(growPet); // Valida si todos los usuarios completaron sus medicamentos
       })();
     }
 
