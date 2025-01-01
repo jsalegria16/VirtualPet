@@ -12,7 +12,16 @@ const AddMedicationForm = () => {
     const currentTime = selectedTime || times;
     setShowTimePicker(false);
     // setTimes(currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
-    setTimes(currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+    // setTimes(currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+    // Formatear la hora seleccionada en formato consistente de 12 horas con AM/PM
+    const formattedTime = new Intl.DateTimeFormat('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true,
+    }).format(currentTime);
+
+    // Establecer el tiempo formateado en el estado
+    setTimes(formattedTime);
   };
 
   return (

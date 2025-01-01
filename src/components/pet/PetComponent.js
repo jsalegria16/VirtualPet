@@ -15,17 +15,6 @@ const PetComponent = () => {
     await checkAndSetConfirmationTime(updateMedicationStatus); // Pasa la función como argumento
     console.log('Lógica completada.');
 
-    try {
-      // Lógica adicional
-      console.log('Pet pressed');
-      await checkAndSetConfirmationTime(updateMedicationStatus); // Pasa la función como argumento
-      // Valida si todos los usuarios completaron sus medicamentos
-      await validateAndGrowPet(growPet);
-
-    } catch (error) {
-      console.error('Error en la lógica de handlePress:', error);
-    }
-
   };
 
 

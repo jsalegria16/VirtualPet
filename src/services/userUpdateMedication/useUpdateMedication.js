@@ -40,6 +40,7 @@ const useUpdateMedication = () => {
             console.log(`Estado actualizado correctamente para la confirmacion ${medicationId}.`);
 
             // Llamar a la validación conjunta si el estado se actualizó
+            alert('Voy a llamar a la validacion conjunta');
             await validateAndGrowPet(growPet);
 
         } catch (error) {
