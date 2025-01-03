@@ -1,16 +1,17 @@
 /* 
 - hacer el user id-   Hacer que se eliminen algunos medicamaentos tanto en la DB local como en la online 
-    - Falta un icono en la app. Porque el listener a la DB funciona
-- validacion y creciomeinto de la mascota (En conjunto)
-  - Aqui validara franjas horarias
-  - solo en la franja horaria del paciente
-
-depurar useDailyValidation
-
     
+
+Completar useDailyValidation
+ - 
+ - 
+ - 
+ - 
+ 
 
         - Logs de los usos 
         - Las ventanas de tiempo están en los archivos useDailyValidation y useUpdateMEdication y useConformationTime
+        - Falta un icono en la app. 
 */
 
 confirmaciones = {
