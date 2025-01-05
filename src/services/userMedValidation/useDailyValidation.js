@@ -24,7 +24,19 @@ const useDailyValidation = () => {
             if (allConfirmed) {
                 console.log("Todos los usuarios han confirmado sus medicamentos. Haciendo crecer la mascota...");
                 await growPet(); // Llama a la función para hacer crecer la mascota
-                await resetConfirmations(); // Reinicia confirmaciones después de hacer crecer la mascota
+                // await resetConfirmations(); // Reinicia confirmaciones después de hacer crecer la mascota
+
+                // >> Faltaría registrar el exito de esto en un log
+                // Registrar el éxito del día
+                const today = new Date().toISOString().split('T')[0]; // Fecha en formato YYYY-MM-DD
+                await firestore().collection('MascotaLogs').add({
+                    fecha: today,
+                    estado: 'Creció',
+                    motivo: 'Todos los medicamentos confirmados a tiempo',
+                });
+
+                //Notificacion
+
             }
         } catch (error) {
             console.error('Error al validar confirmaciones conjuntas:', error);
@@ -58,7 +70,7 @@ const useDailyValidation = () => {
         }
     };
 
-    return { validateAndGrowPet };
+    return { validateAndGrowPet, resetConfirmations };
 };
 
 export default useDailyValidation;

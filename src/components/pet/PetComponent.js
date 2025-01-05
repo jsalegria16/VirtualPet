@@ -13,6 +13,7 @@ const PetComponent = () => {
     // Lógica adicional
     console.log('Pet pressed');
     await checkAndSetConfirmationTime(updateMedicationStatus); // Pasa la función como argumento
+    await validateAndGrowPet(growPet); // cada vez que interatuo(touch/NFC) >> Mejor cada vez que interactuo correctamente?
     console.log('Lógica completada.');
 
   };

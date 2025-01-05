@@ -41,7 +41,7 @@ const useUpdateMedication = () => {
 
             // Llamar a la validación conjunta si el estado se actualizó
             alert('Voy a llamar a la validacion conjunta');
-            await validateAndGrowPet(growPet);
+            // await validateAndGrowPet(growPet); 
 
         } catch (error) {
             console.error(`Error al actualizar el estado del medicamento: ${error.message}`);

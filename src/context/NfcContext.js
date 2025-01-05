@@ -39,7 +39,7 @@ export const NfcProvider = ({ children }) => {
   const { checkAndSetConfirmationTime } = useConfirmationTime(userId);
 
   // Logica relacionada con las validaciones grupales de la toma del medicamento y crecimiento de la mascota
-  const { validateAndGrowPet } = useDailyValidation(); // Hook que maneja la validación de la toma de medicamentos
+  const { validateAndGrowPet, resetConfirmations } = useDailyValidation(); // Hook que maneja la validación de la toma de medicamentos
 
   //Entrada a la aplicaicion y funcionamiento.
   React.useEffect(() => {
@@ -69,6 +69,24 @@ export const NfcProvider = ({ children }) => {
   }, [tagInfo]); // Se dispara cada vez que cambia la etiqueta NFC y la fecha de confirmación
 
 
+  // Temporizador PAra validacion al final del dia(O una hora en especial)
+  React.useEffect(() => {
+    const timer = setInterval(async () => {
+      const now = new Date();
+      const currentHour = now.getHours();
+      const currentMinutes = now.getMinutes();
+
+      // Ejecutar la validación al final del día (ajusta según tus necesidades)
+      if (currentHour === 13 && currentMinutes === 59) {
+        console.log('Ejecutando reinicio diario al final del día...');
+
+        // Llama a resetConfirmations para reiniciar los estados
+        await resetConfirmations();
+      }
+    }, 60000); // Verifica cada minuto
+
+    return () => clearInterval(timer); // Limpia el intervalo al desmontar el contexto
+  }, []);
 
 
   return (
