@@ -1,6 +1,7 @@
 import firestore from '@react-native-firebase/firestore';
 
 const useDailyValidation = () => {
+
     const validateAndGrowPet = async (growPet) => {
         try {
             console.log('Validando confirmaciones conjuntas...');

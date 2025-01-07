@@ -8,6 +8,7 @@ import useUserId from '../services/createUserID/useUserId'
 import useDailyValidation from '../services/userMedValidation/useDailyValidation';
 import useConfirmationTime from '../services/userUpdateMedication/useConfirmationTime';
 import useUpdateMedication from '../services/userUpdateMedication/useUpdateMedication';
+import useDailyReset from '../services/DailyReset/useDailyReset';
 
 const NfcContext = createContext();
 
@@ -41,6 +42,9 @@ export const NfcProvider = ({ children }) => {
   // Logica relacionada con las validaciones grupales de la toma del medicamento y crecimiento de la mascota
   const { validateAndGrowPet, resetConfirmations } = useDailyValidation(); // Hook que maneja la validación de la toma de medicamentos
 
+  //Logica para manejar reset diario desde Firestore
+  const { resetHour, resetMinute } = useDailyReset(resetConfirmations);
+
   //Entrada a la aplicaicion y funcionamiento.
   React.useEffect(() => {
     // if (tagInfo) {
@@ -68,7 +72,6 @@ export const NfcProvider = ({ children }) => {
 
   }, [tagInfo]); // Se dispara cada vez que cambia la etiqueta NFC y la fecha de confirmación
 
-
   // Temporizador PAra validacion al final del dia(O una hora en especial)
   React.useEffect(() => {
     const timer = setInterval(async () => {
@@ -76,17 +79,22 @@ export const NfcProvider = ({ children }) => {
       const currentHour = now.getHours();
       const currentMinutes = now.getMinutes();
 
-      // Ejecutar la validación al final del día (ajusta según tus necesidades)
-      if (currentHour === 13 && currentMinutes === 59) {
-        console.log('Ejecutando reinicio diario al final del día...');
-
-        // Llama a resetConfirmations para reiniciar los estados
-        await resetConfirmations();
+      // Verifica si el horario desde Firestore está configurado
+      if (resetHour !== null && resetMinute !== null) {
+        // Ejecutar la validación al final del día (ajusta según tus necesidades)
+        console.log(`Ejecutando reinicio diario al final del día...(Algo cambio en la DB)
+          ${resetHour}: ${resetMinute}} 
+          ${currentHour}: ${currentMinutes}`)
+        if (currentHour === resetHour && currentMinutes === resetMinute) {
+          console.log('Ejecutando reinicio diario al final del día...');
+          // Llama a resetConfirmations para reiniciar los estados
+          await resetConfirmations();
+        }
       }
     }, 60000); // Verifica cada minuto
 
     return () => clearInterval(timer); // Limpia el intervalo al desmontar el contexto
-  }, []);
+  }, [resetHour, resetMinute]);
 
 
   return (
