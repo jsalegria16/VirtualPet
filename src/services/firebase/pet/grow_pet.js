@@ -1,5 +1,5 @@
 import firestore from '@react-native-firebase/firestore';
-import { useNfc } from '../../context/NfcContext';
+import { useNfc } from '../../../context/NfcContext';
 
 // Cargar el estado de la mascota desde Firestore
 export const loadState_online = async () => {

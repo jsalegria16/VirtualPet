@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import firestore from '@react-native-firebase/firestore';
 import { useEffect } from 'react';
-import addConfirmation from '../firebase/add_medication';
-import getMedications from '../firebase/get_medications';
+import addConfirmation from '../firebase/medication/add_medication';
+import getMedications from '../firebase/medication/get_medications';
 
 
 // Hook personalizado para manejar NFC y almacenar datos en AsyncStorage.

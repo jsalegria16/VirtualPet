@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { loadState_online, growPet_online } from '../firebase/grow_pet';
+import { loadState_online, growPet_online } from '../firebase/pet/grow_pet';
 import firestore from '@react-native-firebase/firestore';
 
 // Hook para manejar el crecimiento de la mascota

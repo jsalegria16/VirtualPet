@@ -1,11 +1,8 @@
 import firestore from '@react-native-firebase/firestore';
-import useDailyValidation from '../userMedValidation/useDailyValidation';
+import useDailyValidation from '../userDailyValidation/useDailyValidation';
 import usePetGrowth from '../usePetGrowth_LocalStor/usePetGrowth';
 
 const useUpdateMedication = () => {
-
-    const { validateAndGrowPet } = useDailyValidation();
-    const { growPet } = usePetGrowth();
 
     const updateMedicationStatus = async (userId, medicationId) => {
         console.log(`Actualizando estado del medicamento ${medicationId} para el usuario ${userId}.`);
@@ -38,10 +35,6 @@ const useUpdateMedication = () => {
             });
 
             console.log(`Estado actualizado correctamente para la confirmacion ${medicationId}.`);
-
-            // Llamar a la validación conjunta si el estado se actualizó
-            alert('Voy a llamar a la validacion conjunta');
-            // await validateAndGrowPet(growPet); 
 
         } catch (error) {
             console.error(`Error al actualizar el estado del medicamento: ${error.message}`);

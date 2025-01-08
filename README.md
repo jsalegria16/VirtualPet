@@ -79,3 +79,141 @@ To learn more about React Native, take a look at the following resources:
 - [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
 - [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
 - [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+
+
+
+```mermaid
+graph TD
+    subgraph "NFC Detection"
+        nfcScan["NFC Tag Scan"]
+        tagStorage["Local Storage - Tag History"]
+        nfcContext["NFC Context"]
+    end
+
+    subgraph "Medication Management"
+        medStatus["Medication Status"]
+        medValidation["Medication Time Validation"]
+        medConfirm["Medication Confirmation"]
+        medHistory["Medication History"]
+    end
+
+    subgraph "Pet Growth System"
+        groupValid["Group Validation"]
+        petGrowth["Pet Growth"]
+        growthSync["Growth State Sync"]
+        dailyReset["Daily Reset"]
+    end
+
+    subgraph "Storage Layer"
+        localStorage["AsyncStorage"]
+        firestore["Firestore DB"]
+    end
+
+    %% NFC Flow
+    nfcScan -->|Detect| nfcContext
+    nfcScan -->|Store| tagStorage
+    
+    %% Medication Flow
+    nfcContext -->|Trigger| medValidation
+    medValidation -->|Check Time Window| medConfirm
+    medConfirm -->|Update| medStatus
+    medStatus -->|Record| medHistory
+    
+    %% Growth Flow
+    medStatus -->|Check All Users| groupValid
+    groupValid -->|If All Confirmed| petGrowth
+    petGrowth -->|Sync State| growthSync
+    dailyReset -->|Reset Status| medStatus
+    
+    %% Storage Interactions
+    tagStorage -->|Persist| localStorage
+    medStatus -->|Store| firestore
+    petGrowth -->|Save State| firestore
+    growthSync -->|Sync Across Devices| firestore
+```
+
+
+```mermaid
+graph TB
+    User((User))
+
+    subgraph "Mobile Application"
+        MobileApp["Mobile App<br>React Native"]
+        
+        subgraph "Navigation Layer"
+            AppNavigator["App Navigator<br>React Navigation"]
+            TabNavigator["Tab Navigator<br>Bottom Tab Navigation"]
+        end
+
+        subgraph "Core Components"
+            HomeScreen["Home Screen<br>React Component"]
+            SettingsScreen["Settings Screen<br>React Component"]
+            
+            subgraph "Feature Components"
+                PetComponent["Pet Component<br>React Component"]
+                MedHistory["Medication History<br>React Component"]
+                AddMedForm["Add Medication Form<br>React Component"]
+                ScanHistory["Scan History<br>React Component"]
+                UsersProgress["Users Progress<br>React Component"]
+            end
+        end
+
+        subgraph "Context Layer"
+            NfcContext["NFC Context<br>React Context"]
+        end
+
+        subgraph "Services Layer"
+            NfcService["NFC Service<br>react-native-nfc-manager"]
+            LocalStorage["Local Storage<br>AsyncStorage"]
+            MedManagement["Med Management<br>Custom Hook"]
+            PetGrowth["Pet Growth Service<br>Custom Hook"]
+            DailyValidation["Daily Validation<br>Custom Hook"]
+            UserIdService["User ID Service<br>Custom Hook"]
+        end
+    end
+
+    subgraph "Backend Services"
+        FirebaseApp["Firebase App<br>Firebase"]
+        
+        subgraph "Firebase Services"
+            Firestore["Cloud Firestore<br>NoSQL Database"]
+            Authentication["Authentication<br>Firebase Auth"]
+        end
+    end
+
+    %% User Interactions
+    User -->|Interacts with| MobileApp
+    
+    %% Mobile App Structure
+    MobileApp -->|Uses| AppNavigator
+    AppNavigator -->|Contains| TabNavigator
+    TabNavigator -->|Routes to| HomeScreen
+    TabNavigator -->|Routes to| SettingsScreen
+
+    %% Component Relationships
+    HomeScreen -->|Displays| PetComponent
+    HomeScreen -->|Shows| MedHistory
+    SettingsScreen -->|Contains| AddMedForm
+    HomeScreen -->|Shows| ScanHistory
+    HomeScreen -->|Shows| UsersProgress
+
+    %% Context and Services
+    NfcContext -->|Manages State| MobileApp
+    NfcContext -->|Uses| NfcService
+    NfcContext -->|Uses| LocalStorage
+    NfcContext -->|Uses| MedManagement
+    NfcContext -->|Uses| PetGrowth
+    NfcContext -->|Uses| DailyValidation
+    NfcContext -->|Uses| UserIdService
+
+    %% Backend Integration
+    MedManagement -->|Reads/Writes| Firestore
+    PetGrowth -->|Updates| Firestore
+    DailyValidation -->|Validates| Firestore
+    FirebaseApp -->|Manages| Firestore
+    FirebaseApp -->|Manages| Authentication
+
+    %% Local Storage Integration
+    NfcService -->|Stores Data| LocalStorage
+    MedManagement -->|Caches Data| LocalStorage
+```

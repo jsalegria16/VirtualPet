@@ -5,7 +5,7 @@ import usePetGrowth from '../services/usePetGrowth_LocalStor/usePetGrowth'; // I
 import useMedManagement from '../services/MedManagement/useMedManagement';
 
 import useUserId from '../services/createUserID/useUserId'
-import useDailyValidation from '../services/userMedValidation/useDailyValidation';
+import useDailyValidation from '../services/userDailyValidation/useDailyValidation';
 import useConfirmationTime from '../services/userUpdateMedication/useConfirmationTime';
 import useUpdateMedication from '../services/userUpdateMedication/useUpdateMedication';
 import useDailyReset from '../services/DailyReset/useDailyReset';
@@ -95,7 +95,6 @@ export const NfcProvider = ({ children }) => {
 
     return () => clearInterval(timer); // Limpia el intervalo al desmontar el contexto
   }, [resetHour, resetMinute]);
-
 
   return (
     <NfcContext.Provider value={{
