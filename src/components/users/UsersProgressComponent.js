@@ -116,7 +116,7 @@ const UsersProgressComponent = () => {
 
 const styles = StyleSheet.create({
   progressContainer: {
-    flex: 1,
+    flex: 55,
     justifyContent: 'space-between',
     padding: 0,
     backgroundColor: '#ffffff',

@@ -57,7 +57,7 @@ const screenWidth = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
   petContainer: {
-    flex: 1,
+    flex: 45,
     justifyContent: 'flex-start',
     backgroundColor: '#ffffff',
     marginBottom: 1,

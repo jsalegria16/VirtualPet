@@ -8,7 +8,7 @@ import useUserId from '../services/createUserID/useUserId'
 import useDailyValidation from '../services/userDailyValidation/useDailyValidation';
 import useConfirmationTime from '../services/userUpdateMedicationStatus/useConfirmationTime';
 import useUpdateMedication from '../services/userUpdateMedicationStatus/useUpdateMedicationStatus';
-import useDailyReset from '../services/DailyReset/useDailyReset';
+import useRoleManagement from '../services/RoleManagement/useRoleManagement';
 
 const NfcContext = createContext();
 
@@ -40,29 +40,17 @@ export const NfcProvider = ({ children }) => {
   const { checkAndSetConfirmationTime } = useConfirmationTime(userId);
 
   // Logica relacionada con las validaciones grupales de la toma del medicamento y crecimiento de la mascota
-  const { validateAndGrowPet, resetConfirmations } = useDailyValidation(); // Hook que maneja la validación de la toma de medicamentos
+  const { validateAndGrowPet } = useDailyValidation(); // Hook que maneja la validación de la toma de medicamentos
 
   //Logica para manejar reset diario desde Firestore
-  const { resetHour, resetMinute } = useDailyReset(resetConfirmations);
+  // const { resetHour, resetMinute } = useDailyReset();
+
+  //Logica para el intercambio de roles
+  const { currentRoleUserId, currentRoleName, } = useRoleManagement(userId);
 
   //Entrada a la aplicaicion y funcionamiento.
   React.useEffect(() => {
-    // if (tagInfo) {
-
-    //   checkAndSetConfirmationTime().then(() => {
-
-    //     if (confirmationTime) {
-
-    //       // Actualiza el estado del medicamento para el usuario
-    //       updateMedicationStatus();
-
-    //       // growPet(); // Hacemos crecer la mascota cuando se detecta una etiqueta NFC
-    //       //validateAndGrowPet(growPet); // Validamos la toma de medicamentos de todos al detectar una etiqueta NFC
-    //     }
-
-    //   })
-
-    // }
+    // Verifica si hay una etiqueta NFC y si la fecha de confirmación es válida
     if (tagInfo) {
       (async () => {
         await checkAndSetConfirmationTime(updateMedicationStatus); // Actualiza el estado del medicamento para el usuario
@@ -72,29 +60,7 @@ export const NfcProvider = ({ children }) => {
 
   }, [tagInfo]); // Se dispara cada vez que cambia la etiqueta NFC y la fecha de confirmación
 
-  // Temporizador PAra validacion al final del dia(O una hora en especial)
-  React.useEffect(() => {
-    const timer = setInterval(async () => {
-      const now = new Date();
-      const currentHour = now.getHours();
-      const currentMinutes = now.getMinutes();
 
-      // Verifica si el horario desde Firestore está configurado
-      if (resetHour !== null && resetMinute !== null) {
-        // Ejecutar la validación al final del día (ajusta según tus necesidades)
-        console.log(`Ejecutando reinicio diario al final del día...(Algo cambio en la DB)
-          ${resetHour}: ${resetMinute}} 
-          ${currentHour}: ${currentMinutes}`)
-        if (currentHour === resetHour && currentMinutes === resetMinute) {
-          console.log('Ejecutando reinicio diario al final del día...');
-          // Llama a resetConfirmations para reiniciar los estados
-          await resetConfirmations();
-        }
-      }
-    }, 60000); // Verifica cada minuto
-
-    return () => clearInterval(timer); // Limpia el intervalo al desmontar el contexto
-  }, [resetHour, resetMinute]);
 
   return (
     <NfcContext.Provider value={{
@@ -127,6 +93,10 @@ export const NfcProvider = ({ children }) => {
 
       // para la validacion de la toma de medicamentos de todos
       validateAndGrowPet,
+
+      //Para rotar el rol
+      currentRoleUserId,
+      currentRoleName,
 
     }}>
       {children}

@@ -1,6 +1,10 @@
+import { useState, useEffect } from 'react';
 import firestore from '@react-native-firebase/firestore';
 
 const useDailyValidation = () => {
+
+    const [resetHour, setResetHour] = useState(null); // Almacena la hora desde la DB
+    const [resetMinute, setResetMinute] = useState(null); // Almacena los minutos desde la DB
 
     const validateAndGrowPet = async (growPet) => {
         try {
@@ -71,7 +75,48 @@ const useDailyValidation = () => {
         }
     };
 
-    return { validateAndGrowPet, resetConfirmations };
+    // Escucha los cambios en Firestore Para las horas de reinicio de estados
+    useEffect(() => {
+        const unsubscribe = firestore()
+            .collection('config')
+            .doc('dailyReset')
+            .onSnapshot((doc) => {
+                if (doc.exists) {
+                    const data = doc.data();
+                    setResetHour(data.hour); // Actualiza la hora
+                    setResetMinute(data.minute); // Actualiza los minutos
+                    console.log('Configuración de reinicio actualizada:', data);
+                }
+            });
+
+        return () => unsubscribe(); // Limpia la suscripción al desmontar
+    }, []);
+
+    // Temporizador PAra validacion al final del dia(o una hora en especial)
+    useEffect(() => {
+        const timer = setInterval(async () => {
+            const now = new Date();
+            const currentHour = now.getHours();
+            const currentMinutes = now.getMinutes();
+
+            // Verifica si el horario desde Firestore está configurado
+            if (resetHour !== null && resetMinute !== null) {
+                // Ejecutar la validación al final del día (ajusta según tus necesidades)
+                console.log(`Ejecutando reinicio diario al final del día...(Algo cambio en la DB)
+                ${resetHour}: ${resetMinute}} 
+                ${currentHour}: ${currentMinutes}`)
+                if (currentHour === resetHour && currentMinutes === resetMinute) {
+                    console.log('Ejecutando reinicio diario al final del día...');
+                    // Llama a resetConfirmations para reiniciar los estados
+                    await resetConfirmations();
+                }
+            }
+        }, 60000); // Verifica cada minuto
+
+        return () => clearInterval(timer); // Limpia el intervalo al desmontar el contexto
+    }, [resetHour, resetMinute]);
+
+    return { validateAndGrowPet };
 };
 
 export default useDailyValidation;

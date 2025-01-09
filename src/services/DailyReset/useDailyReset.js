@@ -1,7 +1,7 @@
 import React from 'react';
 import firestore from '@react-native-firebase/firestore';
 
-const useDailyReset = (resetConfirmations) => {
+const useDailyReset = () => {
     const [resetHour, setResetHour] = React.useState(null); // Almacena la hora desde la DB
     const [resetMinute, setResetMinute] = React.useState(null); // Almacena los minutos desde la DB
 
