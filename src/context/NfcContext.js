@@ -6,8 +6,8 @@ import useMedManagement from '../services/MedManagement/useMedManagement';
 
 import useUserId from '../services/createUserID/useUserId'
 import useDailyValidation from '../services/userDailyValidation/useDailyValidation';
-import useConfirmationTime from '../services/userUpdateMedication/useConfirmationTime';
-import useUpdateMedication from '../services/userUpdateMedication/useUpdateMedication';
+import useConfirmationTime from '../services/userUpdateMedicationStatus/useConfirmationTime';
+import useUpdateMedication from '../services/userUpdateMedicationStatus/useUpdateMedicationStatus';
 import useDailyReset from '../services/DailyReset/useDailyReset';
 
 const NfcContext = createContext();

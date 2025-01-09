@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import PetComponent from '../components/pet/PetComponent';
 import UsersProgressComponent from '../components/users/UsersProgressComponent';
 
-const HomeScreen = ({navigation}) => {
+const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <PetComponent />
@@ -14,9 +14,9 @@ const HomeScreen = ({navigation}) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 2,
-    justifyContent: 'center',
-    alignItems: 'center',
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
     backgroundColor: '#f0f0f0',
   },
 });

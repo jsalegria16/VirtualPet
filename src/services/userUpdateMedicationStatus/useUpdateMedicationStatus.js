@@ -1,6 +1,4 @@
 import firestore from '@react-native-firebase/firestore';
-import useDailyValidation from '../userDailyValidation/useDailyValidation';
-import usePetGrowth from '../usePetGrowth_LocalStor/usePetGrowth';
 
 const useUpdateMedication = () => {
 

@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import getMedications from '../firebase/medication/get_medications';
 import { Alert } from 'react-native';
 
