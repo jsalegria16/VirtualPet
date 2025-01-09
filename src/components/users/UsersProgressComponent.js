@@ -4,6 +4,7 @@ import CheckBox from '@react-native-community/checkbox';
 import { useNfc } from '../../context/NfcContext'; // Importa el contexto
 import firestore from '@react-native-firebase/firestore';
 
+import { generateDateObject } from '../../utils/generateDateObject/generateDateObject';
 
 const UsersProgressComponent = () => {
   const { medications, userId } = useNfc();
@@ -22,26 +23,10 @@ const UsersProgressComponent = () => {
           const userData = doc.data();
           const confirmaciones = userData?.confirmaciones || {};
 
-          // const medicationsList = Object.keys(confirmaciones).map((id) => ({
-          //   id,
-          //   ...confirmaciones[id],
-          // }));
-
           // Convertir confirmaciones en un array y ordenarlas por hora
           const medicationsList = Object.keys(confirmaciones).map((id) => {
             const med = confirmaciones[id];
-
-            const normalizedTimeString = med.hora.replace(/\s+/g, ' '); // Normaliza cualquier tipo de espacio
-            const cleanedTimeString = normalizedTimeString.trim();
-            const [time, modifier] = cleanedTimeString.split(' ');
-            let [hours, minutes] = time.split(':').map(Number);
-
-            if (modifier === 'PM' && hours < 12) hours += 12;
-            if (modifier === 'AM' && hours === 12) hours = 0;
-
-            const date = new Date();
-            date.setHours(hours, minutes, 0, 0);
-
+            const date = generateDateObject(med.hora);
             return { id, ...med, date };
           }).sort((a, b) => a.date - b.date);
 
@@ -98,7 +83,7 @@ const UsersProgressComponent = () => {
         allUsersProgress.map(
           (user, useIndex) => (
             <View View key={useIndex} style={styles.medicationContainer} >
-              <Text style={styles.medicationText}>{user.name}</Text>
+              <Text style={styles.medicationText}>{user.name ? (user.name) : (NoName)}</Text>
               {
                 user.medications.map(
                   (med, medIndex) => (
@@ -126,28 +111,6 @@ const UsersProgressComponent = () => {
 
 
     </View >
-    // </ScrollView >
-    // <View style={styles.progressContainer}>
-    //   {/* <Text style={styles.text}>Progreso de los Usuarios</Text> */}
-
-    //   Usuario 1
-    //   {/* <View style={styles.userProgress}>
-    //     <Text style={styles.userText}>Pepito Perez</Text>
-    //     <View style={styles.progressBar}></View>
-    //   </View> */}
-
-    //   {/* Usuario 2 */}
-    //   {/* <View style={styles.userProgress}>
-    //     <Text style={styles.userText}>Pepita Perez</Text>
-    //     <View style={styles.progressBar}></View>
-    //   </View> */}
-
-    //   {/* Usuario 3 */}
-    //   {/* <View style={styles.userProgress}>
-    //     <Text style={styles.userText}>Pepito Pérez</Text>
-    //     <View style={styles.progressBar}></View>
-    //   </View> */}
-    // </View>
   );
 };
 

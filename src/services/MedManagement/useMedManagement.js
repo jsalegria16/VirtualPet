@@ -3,6 +3,7 @@ import firestore from '@react-native-firebase/firestore';
 import { useEffect } from 'react';
 import addConfirmation from '../firebase/medication/add_medication';
 import getMedications from '../firebase/medication/get_medications';
+import { generateDateObject } from '../../utils/generateDateObject/generateDateObject';
 
 
 // Hook personalizado para manejar NFC y almacenar datos en AsyncStorage.
@@ -22,28 +23,13 @@ const useMedManagement = (userId) => {
     const unsubscribe = referencia.onSnapshot((docSnapshot) => {
       if (docSnapshot.exists) {
         const confirmaciones = docSnapshot.data()?.confirmaciones || {};
-        // const medicationsList = Object.keys(confirmaciones).map((id) => ({
-        //   id,
-        //   Nombre: docSnapshot.data().Nombre,
-        //   ...confirmaciones[id],
-        // }));
-        // Convertir confirmaciones en un array y ordenarlas por hora
+
         const medicationsList = Object.keys(confirmaciones).map((id) => {
           const med = confirmaciones[id];
-
-          const normalizedTimeString = med.hora.replace(/\s+/g, ' '); // Normaliza cualquier tipo de espacio
-          const cleanedTimeString = normalizedTimeString.trim();
-          const [time, modifier] = cleanedTimeString.split(' ');
-          let [hours, minutes] = time.split(':').map(Number);
-
-          if (modifier === 'PM' && hours < 12) hours += 12;
-          if (modifier === 'AM' && hours === 12) hours = 0;
-
-          const date = new Date();
-          date.setHours(hours, minutes, 0, 0);
-
+          const date = generateDateObject(med.hora);
           return { id, Nombre: docSnapshot.data().Nombre, ...med, date };
         }).sort((a, b) => a.date - b.date);
+
         setMedications(medicationsList);
       } else {
         console.warn('No se encontró el documento del usuario en Firebase.');
