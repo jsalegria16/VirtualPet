@@ -13,7 +13,7 @@ const useConfirmationTime = (userId) => {
         return now >= windowStart && now <= windowEnd;
     };
 
-    const checkAndSetConfirmationTime = async (updateMedicationStatus) => {
+    const checkAndSetConfirmationTime = async (validateAndGrowPet, updateMedicationStatus) => {
         // console.log('Estoy en checkAndSetConfirmationTime');
 
         try {
@@ -37,7 +37,7 @@ const useConfirmationTime = (userId) => {
                         console.log(`MedicationId(local): ${newMedicationId} `);
 
 
-                        await updateMedicationStatus(userId, newMedicationId);
+                        await updateMedicationStatus(validateAndGrowPet, userId, newMedicationId);
 
                         return; // Salimos al encontrar el primer medicamento que cumple
                     } else {

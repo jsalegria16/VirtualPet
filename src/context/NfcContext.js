@@ -1,7 +1,7 @@
 import React, { createContext, useContext } from 'react';
 
 import useNfcWithStorage from '../services/LocalStorage/useNfcWithStorage'; // El hook que manejamos anteriormente para enviar al storage los registros nfc
-import usePetGrowth from '../services/usePetGrowth_LocalStor/usePetGrowth'; // Importa el hook para manejar el crecimiento de la mascota
+import usePetGrowth from '../services/usePetGrowth/usePetGrowth'; // Importa el hook para manejar el crecimiento de la mascota
 import useMedManagement from '../services/MedManagement/useMedManagement';
 
 import useUserId from '../services/createUserID/useUserId'
@@ -40,7 +40,7 @@ export const NfcProvider = ({ children }) => {
   const { checkAndSetConfirmationTime } = useConfirmationTime(userId);
 
   // Logica relacionada con las validaciones grupales de la toma del medicamento y crecimiento de la mascota
-  const { validateAndGrowPet } = useDailyValidation(); // Hook que maneja la validación de la toma de medicamentos
+  const { validateAndGrowPet } = useDailyValidation(growPet); // Hook que maneja la validación de la toma de medicamentos
 
   //Logica para manejar reset diario desde Firestore
   // const { resetHour, resetMinute } = useDailyReset();
@@ -48,13 +48,13 @@ export const NfcProvider = ({ children }) => {
   //Logica para el intercambio de roles
   const { currentRoleUserId, currentRoleName, } = useRoleManagement(userId);
 
-  //Entrada a la aplicaicion y funcionamiento.
+  //Entrada a la aplicacion y funcionamiento.
   React.useEffect(() => {
     // Verifica si hay una etiqueta NFC y si la fecha de confirmación es válida
     if (tagInfo) {
       (async () => {
-        await checkAndSetConfirmationTime(updateMedicationStatus); // Actualiza el estado del medicamento para el usuario
-        await validateAndGrowPet(growPet); // Valida si todos los usuarios completaron sus medicamentos
+        await checkAndSetConfirmationTime(validateAndGrowPet, updateMedicationStatus); // Actualiza el estado del medicamento para el usuario
+        // await validateAndGrowPet(growPet); // Valida si todos los usuarios completaron sus medicamentos
       })();
     }
 

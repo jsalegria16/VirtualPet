@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import firestore from '@react-native-firebase/firestore';
+import { displayGrowthNotification } from '../notifications/notificationsServices';
 
-const useDailyValidation = () => {
+const useDailyValidation = (growPet) => {
 
     const [resetHour, setResetHour] = useState(null); // Almacena la hora desde la DB
     const [resetMinute, setResetMinute] = useState(null); // Almacena los minutos desde la DB
 
-    const validateAndGrowPet = async (growPet) => {
+    const validateAndGrowPet = async () => {
         try {
             console.log('Validando confirmaciones conjuntas...');
 
@@ -31,6 +32,10 @@ const useDailyValidation = () => {
                 await growPet(); // Llama a la función para hacer crecer la mascota
                 // await resetConfirmations(); // Reinicia confirmaciones después de hacer crecer la mascota
 
+
+                //Notificacion
+                await displayGrowthNotification();
+
                 // >> Faltaría registrar el exito de esto en un log
                 // Registrar el éxito del día
                 const today = new Date().toISOString().split('T')[0]; // Fecha en formato YYYY-MM-DD
@@ -40,7 +45,7 @@ const useDailyValidation = () => {
                     motivo: 'Todos los medicamentos confirmados a tiempo',
                 });
 
-                //Notificacion
+
 
             }
         } catch (error) {

@@ -113,23 +113,6 @@ const useRoleManagement = (userId) => {
         }
     };
 
-    // Inicializa los roles con una lista predefinida de usuarios
-    const initializeRoles = async (rotationOrder) => {
-        const rolesRef = firestore().collection('config').doc('roles_config');
-        try {
-            await rolesRef.set({
-                currentRoleUserId: rotationOrder[0],
-                rotationOrder: rotationOrder,
-                currentIndex: "0",
-                resetHour: 0, // Hora por defecto
-                resetMinute: 0 // Minuto por defecto
-            });
-            console.log('Roles inicializados.');
-        } catch (error) {
-            console.error('Error al inicializar roles:', error);
-        }
-    };
-
     // Verifica si es hora de rotar el rol
     useEffect(() => {
         const timer = setInterval(async () => {
@@ -156,7 +139,7 @@ const useRoleManagement = (userId) => {
         return () => unsubscribe();
     }, []);
 
-    return { currentRoleUserId, currentRoleName, fetchCurrentRole, rotateRole, initializeRoles };
+    return { currentRoleUserId, currentRoleName, fetchCurrentRole, rotateRole };
 
 };
 

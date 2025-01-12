@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity } from 'react-native';
-
-
 import { useNfc } from '../../context/NfcContext'; // Importa el contexto
+
+import notifee, { AndroidImportance } from '@notifee/react-native';
 
 
 const PetComponent = () => {
@@ -12,11 +12,108 @@ const PetComponent = () => {
   const handlePress = async () => {
     // Lógica adicional
     console.log('Pet pressed');
-    await checkAndSetConfirmationTime(updateMedicationStatus); // Pasa la función como argumento
-    await validateAndGrowPet(growPet); // cada vez que interatuo(touch/NFC) >> Mejor cada vez que interactuo correctamente?
+    await checkAndSetConfirmationTime(validateAndGrowPet, updateMedicationStatus); // Pasa la función como argumento
+    // await validateAndGrowPet(growPet); // cada vez que interatuo(touch/NFC) >> Mejor cada vez que interactuo correctamente?
     console.log('Lógica completada.');
 
-  };
+    // Publicar una notificación con el canal configurado
+    // console.log('Notificación enviada.');
+    // // Create a channel (required for Android)
+    // const channelId = await notifee.createChannel({
+    //   id: 'default_id',
+    //   name: 'Default Channel',
+    // });
+
+    // Display a notification
+    // await notifee.displayNotification({
+    //   id: '123', //PAra actualizarla despues posiblemente
+    //   title: 'HAs tocado la mascota',
+    //   body: 'Estas interactualdo con la mascota ',
+    //   android: {
+    //     channelId,
+    //     // smallIcon: 'name-of-a-small-icon', // optional, defaults to 'ic_launcher'.
+    //     // pressAction is needed if you want the notification to open the app when pressed
+    //     pressAction: {
+    //       id: 'default',
+    //     },
+    //   },
+    // });
+
+    // Create a time-based trigger
+
+    // const date = new Date(Date.now());
+    // date.setHours(14);
+    // date.setMinutes(11);
+
+    // const trigger = {
+    //   type: TriggerType.TIMESTAMP,
+    //   timestamp: date.getTime(), // fire at 11:10am (10 minutes before meeting)
+    // };
+
+    // // Trigger cada 2 mins
+    // const trigger = {
+    //   type: TriggerType.INTERVAL,
+    //   interval: 15,
+    //   timeUnit: TimeUnit.MINUTES
+    // };
+
+    // Create a trigger notification
+    // await notifee.createTriggerNotification(
+    //   {
+    //     title: 'Meeting with Jane',
+    //     body: 'Esto se repite cada minuto.',
+    //     android: {
+    //       channelId: 'default_id',
+    //     },
+
+    //   },
+    //   trigger,
+    // );
+
+    try {
+      // Crear el canal de notificación (Android)
+      const channelId_Prueba1 = await notifee.createChannel({
+        id: 'id_my_channel1',
+        name: 'Prueba de sonido',
+        lights: true,
+        vibration: true,
+        importance: AndroidImportance.HIGH,
+        sound: 'custom_sound',
+      });
+
+      const channelId_Prueba2 = await notifee.createChannel({
+        id: 'id_my_channel2',
+        name: 'Prueba de sonido2',
+        lights: true,
+        vibration: true,
+        importance: AndroidImportance.HIGH,
+        sound: 'pills',
+      });
+
+      const channelId_Prueba3 = await notifee.createChannel({
+        id: 'id_my_channel3',
+        name: 'Prueba de sonido3',
+        lights: true,
+        vibration: true,
+        importance: AndroidImportance.HIGH,
+        sound: 'custom_sound',
+      });
+
+      // Mostrar la notificación
+      await notifee.displayNotification({
+        title: 'Esto es probando',
+        body: 'holaaa.',
+        android: {
+          channelId: channelId_Prueba3 // Sena >> Aqui funciona
+          // channelId: 'id_my_channel3', // Suena >> Aqui funciona
+        },
+      });
+
+    } catch (error) {
+      console.log(error)
+    }
+
+  }
 
 
   return (

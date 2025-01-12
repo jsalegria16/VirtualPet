@@ -2,7 +2,11 @@ import firestore from '@react-native-firebase/firestore';
 
 const useUpdateMedication = () => {
 
-    const updateMedicationStatus = async (userId, medicationId) => {
+
+    const updateMedicationStatus = async (validateAndGrowPet, userId, medicationId) => {
+
+        // Obtener los valores del contexto NFC,
+
         console.log(`Actualizando estado del medicamento ${medicationId} para el usuario ${userId}.`);
         try {
 
@@ -33,6 +37,9 @@ const useUpdateMedication = () => {
             });
 
             console.log(`Estado actualizado correctamente para la confirmacion ${medicationId}.`);
+
+            //una vez actualizo la conformacion, verifico para ver si crece la mascota
+            await validateAndGrowPet();
 
         } catch (error) {
             console.error(`Error al actualizar el estado del medicamento: ${error.message}`);

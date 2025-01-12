@@ -10,6 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@notifee/react-native": "^9.1.8",
     "@react-native-async-storage/async-storage": "^2.0.0",
     "@react-native-community/checkbox": "^0.5.17",
     "@react-native-community/datetimepicker": "^8.2.0",
@@ -21,6 +22,7 @@
     "@react-navigation/native-stack": "^6.11.0",
     "@react-navigation/stack": "^6.4.1",
     "firebase": "^11.0.1",
+    "notifee": "^0.0.1",
     "react": "18.3.1",
     "react-native": "0.75.4",
     "react-native-bouncy-checkbox": "^4.1.2",
