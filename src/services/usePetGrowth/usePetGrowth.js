@@ -7,7 +7,7 @@ import { displayGrowthNotification } from '../notifications/notificationsService
 // Hook para manejar el crecimiento de la mascota
 const usePetGrowth = () => {
   const [petStage, setPetStage] = useState('small'); // Estados: small, medium, large
-  const [isInitialized, setIsInitialized] = useState(false); // Bandera para evitar notificaciones al inicializar
+  const [isInitialLoad, setIsInitialLoad] = useState(true); // Estado para evitar notificaciones en la carga inicial
 
   // Guardar el estado de la mascota en AsyncStorage
   const savePetState = async (newStage) => {
@@ -53,30 +53,31 @@ const usePetGrowth = () => {
             const data = documentSnapshot.data();
             if (data && data.estado !== undefined) {
               if (data.estado !== petStage) {
-                // Si el estado cambió, actualiza y dispara la notificación solo si está inicializado
+                // Si el estado cambió, actualiza y dispara la notificación
                 setPetStage(data.estado);
                 savePetState(data.estado); // Solo como respaldo
                 console.log(`Estado sincronizado desde Firebase: ${data.estado}`);
 
-                if (isInitialized) {
-                  await displayGrowthNotification(); // Mostrar notificación si ya está inicializado
+                if (!isInitialLoad) {
+                  // Mostrar la notificación solo si no es la carga inicial
+                  await displayGrowthNotification();
                 }
               }
             }
           } else {
             console.warn('El documento "mascota" no existe en la colección "PetState".');
           }
+
+          // Después de procesar el primer cambio, actualizamos `isInitialLoad`
+          setIsInitialLoad(false);
         },
         (error) => {
           console.error('Error al obtener el documento desde Firestore:', error);
         }
       );
 
-    // Marca como inicializado después de que el estado inicial se haya cargado
-    setIsInitialized(true);
-
     return () => subscriber(); // Limpieza del listener al desmontar
-  }, [petStage, isInitialized]); // Dependencias incluyen el estado y la bandera de inicialización
+  }, [petStage, isInitialLoad]); // Dependencias incluyen el estado y la bandera de inicialización
 
   return { petStage, growPet }; // Retornamos el estado actual de la mascota y la función para crecerla
 };

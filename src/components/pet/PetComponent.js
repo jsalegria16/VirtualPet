@@ -104,7 +104,7 @@ const PetComponent = () => {
         title: 'Esto es probando',
         body: 'holaaa.',
         android: {
-          channelId: channelId_Prueba3 // Sena >> Aqui funciona
+          channelId: channelId_Prueba2 // Sena >> Aqui funciona
           // channelId: 'id_my_channel3', // Suena >> Aqui funciona
         },
       });

@@ -26,9 +26,18 @@ Notificaciones
     - Hora de tomar el medicamento
         - Tiene que ser dentro de la ventana de tiempo? o a la hora exacta?
         - Cantas veces dentro de la ventana de tiemp?
+
     - Notificacion de recordatorio Por parte del recordador?
+
     - Notificacion de crecimiento/No crecimiento de la mascota ? 
-    -
+        - Crecimiento (ya)
+        - No crecimiento ? (Será necesario)
+        
+    - Sonidos personalizados
+        - Para el Crecimiento de la mascota
+        - Para la Hora De tomar los medicamentos
+        - Cuando Te recordaron que debes tomar los medicamentos (Rol recordaror)
+
     >> Triggers Para programar notifivations a cierta hora https://notifee.app/react-native/docs/triggers#creating-a-trigger-notification
 
 Background 
@@ -37,6 +46,7 @@ Background
 
 
 Consideraciones finales: 
+
     - Ya hay que empezar a documentar la APP. 
     - Icono de eliminar medicamentos.
     - Logs de los usos 

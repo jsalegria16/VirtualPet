@@ -21,6 +21,7 @@ export const NfcProvider = ({ children }) => {
   //Logica para hacer un ID unico de usuario.
   const { userId } = useUserId();
 
+
   //Logica para mostrar las etiquetas nfc registradas
   const { tagInfo, nfcError, scanHistory } = useNfcWithStorage(); // Hook que obtiene los datos
 
@@ -48,7 +49,8 @@ export const NfcProvider = ({ children }) => {
   //Logica para el intercambio de roles
   const { currentRoleUserId, currentRoleName, } = useRoleManagement(userId);
 
-  //Entrada a la aplicacion y funcionamiento.
+
+  // Entrada a la aplicacion y funcionamiento.
   React.useEffect(() => {
     // Verifica si hay una etiqueta NFC y si la fecha de confirmación es válida
     if (tagInfo) {
@@ -59,7 +61,6 @@ export const NfcProvider = ({ children }) => {
     }
 
   }, [tagInfo]); // Se dispara cada vez que cambia la etiqueta NFC y la fecha de confirmación
-
 
 
   return (
