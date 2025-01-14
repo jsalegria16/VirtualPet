@@ -4,6 +4,8 @@ import { useEffect } from 'react';
 import addConfirmation from '../firebase/medication/add_medication';
 import getMedications from '../firebase/medication/get_medications';
 import { generateDateObject } from '../../utils/generateDateObject/generateDateObject';
+import { displayScheduleMedicationReminder } from '../notifications/notificationsServices';
+import { checkExactAlarmPermission } from '../notifications/checkExactAlarmPermission';
 
 
 // Hook personalizado para manejar NFC y almacenar datos en AsyncStorage.
@@ -56,9 +58,18 @@ const useMedManagement = (userId) => {
 
     try {
 
+      // Verificar permisos antes de programar la notificación Por cosas del andrio12+
+      // await checkExactAlarmPermission();
+
       //Vamos a enviar para firebase 
       await addConfirmation(userId, times, false, medName)
       //addConfirmation(userId, times.toString(), false, medName)
+
+      // Convertir el string de hora a un objeto Date
+      const notificationTime = generateDateObject(times);
+
+      // Programar la notificación
+      await displayScheduleMedicationReminder(medName, notificationTime);
 
       setTimes('');
       setMedName('');

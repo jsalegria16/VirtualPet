@@ -26,11 +26,16 @@ Notificaciones
     - Hora de tomar el medicamento
         - Tiene que ser dentro de la ventana de tiempo? o a la hora exacta?
         - Cantas veces dentro de la ventana de tiemp?
+        - (Listo) cuando agrego una medicacion, la notificacion se agrega para todos los diaas a esa hora ()
 
     - Notificacion de recordatorio Por parte del recordador?
 
+    - Notificaion cunado conformas una toma de medicamento
+        - Cuando tomo el medicamento sonar algo (Lo tomaste, has conformado )
+
     - Notificacion de crecimiento/No crecimiento de la mascota ? 
-        - Crecimiento (ya)
+        - (ya) Crecimiento foreground 
+        - Crecimiento background
         - No crecimiento ? (Será necesario)
         
     - Sonidos personalizados

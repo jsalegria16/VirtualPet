@@ -1,4 +1,4 @@
-import notifee, { AndroidImportance } from '@notifee/react-native';
+import notifee, { AndroidImportance, IntervalTrigger, TriggerType, TimeUnit, RepeatFrequency } from '@notifee/react-native';
 
 export const displayGrowthNotification = async () => {
 
@@ -23,3 +23,40 @@ export const displayGrowthNotification = async () => {
         },
     });
 };
+
+export const displayScheduleMedicationReminder = async (medicationName, time) => {
+
+    await notifee.requestPermission(); // Solicitar permisos (solo iOS, Android lo maneja automáticamente)
+
+    // Crear el canal de notificación (Android)
+    const setupNotificationChannel = await notifee.createChannel({
+        id: 'medication-reminders',
+        name: 'Recordatorios de Medicamentos',
+        lights: true,
+        vibration: true,
+        importance: AndroidImportance.HIGH,
+        sound: 'custom_sound',
+
+    });
+
+    const trigger_mine = {
+        type: TriggerType.TIMESTAMP,
+        timestamp: time.getTime(), // Hora en milisegundos
+        repeatFrequency: RepeatFrequency.DAILY,
+    };
+
+
+    await notifee.createTriggerNotification(
+        {
+            // id: 'notifyremender', //No es necesario porque es aleatorio
+            title: 'Hora de tomar tu medicamento',
+            body: `Recuerda tomar ${medicationName}.`,
+            android: {
+                channelId: setupNotificationChannel,
+            },
+        },
+        trigger_mine
+    );
+
+};
+
