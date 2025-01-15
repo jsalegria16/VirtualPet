@@ -50,12 +50,15 @@ import HomeScreen from './screens/HomeScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import { NfcProvider, useNfc } from './context/NfcContext'; // Importa el contexto de NFC
 import RegisterNameModal from './components/registerName/RegisterNameModal'; // Asegúrate de crear este archivo y ruta
-import useUserId from './services/createUserID/useUserId'; // Importa el hook para manejar el userId
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
 
 const Tab = createBottomTabNavigator();
 
 const AppContent = () => {
+
+  // Todo esto es para enviar el nombre a la DB
   const { userId } = useNfc(); // Obtén el userId desde el contexto
   const [isNameRegistered, setIsNameRegistered] = useState(false);
   const [loading, setLoading] = useState(true); // Estado de carga
@@ -83,6 +86,10 @@ const AppContent = () => {
     );
   }
 
+
+  // Esto de aqui es para FCM y el uso de backgroun para las notificaiones del Rol Intercambiable
+
+
   return (
     <>
       {!isNameRegistered && (
@@ -95,7 +102,7 @@ const AppContent = () => {
         <NavigationContainer>
           <Tab.Navigator>
             <Tab.Screen name="Tu mascota" component={HomeScreen} />
-            <Tab.Screen name="Settings" component={SettingsScreen} />
+            <Tab.Screen name="Ajustes" component={SettingsScreen} />
           </Tab.Navigator>
         </NavigationContainer>
       )}

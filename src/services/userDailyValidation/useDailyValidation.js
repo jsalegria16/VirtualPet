@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import firestore from '@react-native-firebase/firestore';
 import { displayGrowthNotification } from '../notifications/notificationsServices';
+import { sendMessageToDevices } from '../notifications/sendMessages';
 
 const useDailyValidation = (growPet) => {
 
@@ -15,6 +16,8 @@ const useDailyValidation = (growPet) => {
             const usersSnapshot = await usersRef.get();
 
             let allConfirmed = true; // Bandera para determinar si todos los medicamentos están confirmados
+            let tokens = []; // Almacenar tokens de dispositivos
+
 
             usersSnapshot.forEach((doc) => {
                 const userConfirmations = doc.data()?.confirmaciones || {};
@@ -25,6 +28,11 @@ const useDailyValidation = (growPet) => {
                         allConfirmed = false;
                     }
                 });
+
+                if (doc.data()?.fcmToken) {
+                    tokens.push(doc.data().fcmToken);
+                }
+
             });
 
             if (allConfirmed) {
@@ -34,7 +42,10 @@ const useDailyValidation = (growPet) => {
 
 
                 //Notificacion
-                await displayGrowthNotification();
+                console.log('Tockens a la solicitud de mascto crece: ' + tokens);
+
+                await sendMessageToDevices(tokens, 'PET_GROWTH');
+                // await displayGrowthNotification();
 
                 // >> Faltaría registrar el exito de esto en un log
                 // Registrar el éxito del día

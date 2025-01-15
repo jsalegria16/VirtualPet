@@ -59,7 +59,7 @@ const UsersProgressComponent = () => {
     <View style={styles.progressContainer}>
       <Text style={styles.text}>Tu progreso</Text>
       <View style={styles.medicationContainer}>
-        <Text style={styles.medicationText}> {medications.length > 0 ? (medications[0].Nombre) : ('NO')} </Text>
+        <Text style={styles.medicationText}> {medications.length > 0 ? (medications[0].Nombre) : ('Usuario')} </Text>
         {medications.length > 0 ? (
           medications.map((med, index) => (
             <View key={index} style={styles.checkboxContainer}>
@@ -73,7 +73,7 @@ const UsersProgressComponent = () => {
             </View>
           ))
         ) : (
-          <Text style={styles.noDataText}>No hay medicamentos registrados.</Text>
+          <Text style={styles.noDataText}>No tienes medicamentos registrados.</Text>
         )}
       </View>
 

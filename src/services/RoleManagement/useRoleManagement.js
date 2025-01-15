@@ -88,8 +88,6 @@ const useRoleManagement = (userId) => {
             }
 
             const data = docSnapshot.data();
-            console.log('Datos de roles:', data.currentRoleUser);
-            console.log('Datos de userID', userId);
             if (data.currentRoleUser !== userId) {
                 console.log('Este dispositivo no tiene el rol de recordador.');
                 return;

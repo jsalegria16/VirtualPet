@@ -5,7 +5,6 @@ import addConfirmation from '../firebase/medication/add_medication';
 import getMedications from '../firebase/medication/get_medications';
 import { generateDateObject } from '../../utils/generateDateObject/generateDateObject';
 import { displayScheduleMedicationReminder } from '../notifications/notificationsServices';
-import { checkExactAlarmPermission } from '../notifications/checkExactAlarmPermission';
 
 
 // Hook personalizado para manejar NFC y almacenar datos en AsyncStorage.
@@ -68,8 +67,10 @@ const useMedManagement = (userId) => {
       // Convertir el string de hora a un objeto Date
       const notificationTime = generateDateObject(times);
 
+      console.log(notificationTime);
+
       // Programar la notificación
-      await displayScheduleMedicationReminder(medName, notificationTime);
+      // await displayScheduleMedicationReminder(medName, notificationTime);
 
       setTimes('');
       setMedName('');

@@ -60,7 +60,7 @@ const usePetGrowth = () => {
 
                 if (!isInitialLoad) {
                   // Mostrar la notificación solo si no es la carga inicial
-                  await displayGrowthNotification();
+                  // Esto no es necesario
                 }
               }
             }
