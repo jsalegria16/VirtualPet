@@ -51,6 +51,8 @@ Background
     - (ya?) PAra validaciones/Cambio De rol. 
     Para esto, está funcionado, pero seguir probando para encontrar errores.
 
+Estado de humor de la mascota.
+
 
 Consideraciones finales: 
 

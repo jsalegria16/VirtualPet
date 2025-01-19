@@ -23,7 +23,7 @@ export const NfcProvider = ({ children }) => {
 
 
   //Logica para mostrar las etiquetas nfc registradas
-  const { tagInfo, nfcError, scanHistory } = useNfcWithStorage(); // Hook que obtiene los datos
+  const { tagInfo } = useNfcWithStorage(); // Hook que obtiene los datos
 
   // Lógica para hacer crecer la mascota cuando se detecta una etiqueta NFC
   // Conexion entre crecimeinto y lectura nfc
@@ -70,8 +70,8 @@ export const NfcProvider = ({ children }) => {
 
       //Historial de registros nfc
       tagInfo,
-      nfcError,
-      scanHistory,
+      // nfcError,
+      // scanHistory,
 
       //PAra el crecimento de la mascota
       petStage,      // Proporcionamos el estado actual de la mascota
