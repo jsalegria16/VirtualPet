@@ -27,7 +27,7 @@ export const NfcProvider = ({ children }) => {
 
   // Lógica para hacer crecer la mascota cuando se detecta una etiqueta NFC
   // Conexion entre crecimeinto y lectura nfc
-  const { petStage, growPet } = usePetGrowth(); // Hook que maneja el crecimiento de la mascota
+  const { petStage, petHumor, growPet } = usePetGrowth(); // Hook que maneja el crecimiento de la mascota
 
   // Logica para agregar un medicamento desde la ventana de confs
   const { medName, setMedName, times, setTimes, handleAddMedication, loadMedRegiment, medications } = useMedManagement(userId);

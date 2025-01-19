@@ -7,6 +7,7 @@ import { displayGrowthNotification } from '../notifications/notificationsService
 // Hook para manejar el crecimiento de la mascota
 const usePetGrowth = () => {
   const [petStage, setPetStage] = useState('small'); // Estados: small, medium, large
+  const [petHumor, setPetHumor] = useState('happy'); // Estados: happy, sad
   const [isInitialLoad, setIsInitialLoad] = useState(true); // Estado para evitar notificaciones en la carga inicial
 
   // Guardar el estado de la mascota en AsyncStorage
@@ -79,7 +80,7 @@ const usePetGrowth = () => {
     return () => subscriber(); // Limpieza del listener al desmontar
   }, [petStage, isInitialLoad]); // Dependencias incluyen el estado y la bandera de inicialización
 
-  return { petStage, growPet }; // Retornamos el estado actual de la mascota y la función para crecerla
+  return { petStage, petHumor, growPet }; // Retornamos el estado actual de la mascota y la función para crecerla
 };
 
 export default usePetGrowth;

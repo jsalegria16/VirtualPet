@@ -3,11 +3,12 @@ import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity } from 'rea
 import { useNfc } from '../../context/NfcContext'; // Importa el contexto
 
 import notifee, { AndroidImportance } from '@notifee/react-native';
+import { logNfcInteractionForUser } from '../../utils/LogsFirebase/logNfcInteraction';
 // import axios from 'axios';
 
 const PetComponent = () => {
 
-  const { tagInfo, nfcError, petStage, growPet, validateAndGrowPet, updateMedicationStatus, checkAndSetConfirmationTime } = useNfc(); // Obtener los valores del contexto NFC, incluyendo el estado de la mascota
+  const { userId, tagInfo, nfcError, petStage, growPet, validateAndGrowPet, updateMedicationStatus, checkAndSetConfirmationTime } = useNfc(); // Obtener los valores del contexto NFC, incluyendo el estado de la mascota
 
   // const sendMessageToDevice = async (receiverToken, message) => {
   //   try {
@@ -70,14 +71,13 @@ const PetComponent = () => {
   };
 
 
-
-
   const handlePress = async () => {
     // Lógica adicional
     console.log('Pet pressed');
 
     await checkAndSetConfirmationTime(validateAndGrowPet, updateMedicationStatus); // Pasa la función como argumento
     console.log('Lógica completada.');
+    await logNfcInteractionForUser(userId, 'Interaccion NFC, confirmacion de la medicacion')
 
     //Vamos a probar una nueva forma.
     // await sendMessageToDevice('cj1uo-uJQvauBSs2PISXl9:APA91bF3-gWvA5MqZqqHSMK4reTmVZDbzktptmDU3w513CbPPi9mC1-MK-rUEJRvHqUF6s7kCBGT1g8tORt1h_wfL3AyDMNNduEv7H6NKUSRJf1qhwoslqI', 'funciona jejeje')

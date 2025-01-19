@@ -40,7 +40,6 @@ const useDailyValidation = (growPet) => {
                 await growPet(); // Llama a la función para hacer crecer la mascota
                 // await resetConfirmations(); // Reinicia confirmaciones después de hacer crecer la mascota
 
-
                 //Notificacion
                 console.log('Tockens a la solicitud de mascto crece: ' + tokens);
 
@@ -49,14 +48,17 @@ const useDailyValidation = (growPet) => {
 
                 // >> Faltaría registrar el exito de esto en un log
                 // Registrar el éxito del día
-                const today = new Date().toISOString().split('T')[0]; // Fecha en formato YYYY-MM-DD
+                const timestamp = new Date(); // Fecha y hora actuales en UTC
+                // Formatear la fecha y hora locales
+                const today = timestamp.toLocaleString('es-ES', {
+                    timeZone: 'America/Bogota', // Cambia por tu zona horaria, si es diferente
+                    hour12: true,
+                });
                 await firestore().collection('MascotaLogs').add({
                     fecha: today,
                     estado: 'Creció',
                     motivo: 'Todos los medicamentos confirmados a tiempo',
                 });
-
-
 
             }
         } catch (error) {

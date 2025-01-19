@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import NfcManager, { NfcEvents } from 'react-native-nfc-manager';
+import { logNfcInteractionForUser } from '../../utils/LogsFirebase/logNfcInteraction';
 
 // Hook personalizado para manejar NFC y almacenar datos en AsyncStorage
-const useNfcWithStorage = () => {
+const useNfcWithStorage = (userId) => {
   const [tagInfo, setTagInfo] = useState(null); // Estado para almacenar la información de la etiqueta NFC
   const [nfcError, setNfcError] = useState(null); // Estado para almacenar errores de NFC
   const [scanHistory, setScanHistory] = useState([]); // Estado para almacenar el historial de escaneos
@@ -20,6 +21,7 @@ const useNfcWithStorage = () => {
         NfcManager.setEventListener(NfcEvents.DiscoverTag, async (tag) => {
           setTagInfo(tag); // Almacenar la información de la etiqueta en el estado
           await saveTagToStorage(tag); // Guardar la etiqueta en AsyncStorage
+          await logNfcInteractionForUser(userId, 'Interacción NFC, Confirmacion del medicamento'); // Guardo el log en FB
           await loadTagHistory(); // Cargar el historial después de guardar
         });
 

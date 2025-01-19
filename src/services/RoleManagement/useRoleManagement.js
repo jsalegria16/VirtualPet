@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import firestore from '@react-native-firebase/firestore';
+import logRoleChange from '../../utils/LogsFirebase/logRotationRole';
 
 const useRoleManagement = (userId) => {
     const [currentRoleUserId, setCurrentRoleUserId] = useState(null);
@@ -105,6 +106,8 @@ const useRoleManagement = (userId) => {
             console.log(`Nuevo rol asignado a: ${rotationOrder[currentIndex]}`);
             // Actualiza los estados locales
             await fetchCurrentRole(); // Llama a esta función para obtener el nuevo currentRoleUser y currentRoleName
+            // Log Para registrar el nuevo cambio de ROL
+            await logRoleChange(userId, rotationOrder[currentIndex]);
 
         } catch (error) {
             console.error('Error al rotar el rol:', error);
