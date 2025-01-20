@@ -57,9 +57,6 @@ const useMedManagement = (userId) => {
 
     try {
 
-      // Verificar permisos antes de programar la notificación Por cosas del andrio12+
-      // await checkExactAlarmPermission();
-
       //Vamos a enviar para firebase 
       await addConfirmation(userId, times, false, medName)
       //addConfirmation(userId, times.toString(), false, medName)
@@ -67,10 +64,10 @@ const useMedManagement = (userId) => {
       // Convertir el string de hora a un objeto Date
       const notificationTime = generateDateObject(times);
 
-      console.log(notificationTime);
+      console.log('hora progamanaa del medicamento ', medName, ': ', notificationTime);
 
       // Programar la notificación
-      // await displayScheduleMedicationReminder(medName, notificationTime);
+      await displayScheduleMedicationReminder(medName, notificationTime);
 
       setTimes('');
       setMedName('');

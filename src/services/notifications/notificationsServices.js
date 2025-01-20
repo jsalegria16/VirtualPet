@@ -1,4 +1,4 @@
-import notifee, { AndroidImportance, IntervalTrigger, TriggerType, TimeUnit, RepeatFrequency } from '@notifee/react-native';
+import notifee, { AndroidImportance, TimestampTrigger, TriggerType, TimeUnit, RepeatFrequency, getTriggerNotifications } from '@notifee/react-native';
 
 //Las diferentes notificaciones que crearé
 
@@ -86,6 +86,12 @@ export const displayScheduleMedicationReminder = async (medicationName, time) =>
 
     await notifee.requestPermission(); // Solicitar permisos (solo iOS, Android lo maneja automáticamente)
 
+    const now = new Date();
+    if (time <= now) {
+        time.setDate(time.getDate() + 1); // Ajusta al día siguiente
+        console.log('La fecha debe ser en el futuro, se ajustará: ', time);
+    }
+
     // Crear el canal de notificación (Android)
     const setupNotificationChannel = await notifee.createChannel({
         id: 'medication-reminders',
@@ -96,6 +102,7 @@ export const displayScheduleMedicationReminder = async (medicationName, time) =>
         sound: 'medicationtime',
 
     });
+
 
     const trigger_mine = {
         type: TriggerType.TIMESTAMP,

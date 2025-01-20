@@ -57,7 +57,7 @@ const UsersProgressComponent = () => {
 
     // <ScrollView style={styles.scrollViewHistory}>
     <View style={styles.progressContainer}>
-      <Text style={styles.text}>Tu progreso</Text>
+      <Text style={styles.text}>Tu horario</Text>
       <View style={styles.medicationContainer}>
         <Text style={styles.medicationText}> {medications.length > 0 ? (medications[0].Nombre) : ('Usuario')} </Text>
         {medications.length > 0 ? (
@@ -77,7 +77,7 @@ const UsersProgressComponent = () => {
         )}
       </View>
 
-      <Text style={styles.text}>Progreso de los otros usuarios</Text>
+      <Text style={styles.text}>Horarios de los otros usuarios</Text>
 
       {allUsersProgress.length > 0 ? (
         allUsersProgress.map(
@@ -93,6 +93,7 @@ const UsersProgressComponent = () => {
                         value={med.status}
                         disabled // Los usuarios no pueden cambiar el progreso de otros
                         tintColors={{ true: 'blue', false: 'black' }}
+
                       />
                       {/* <Text style={styles.medicationText}>{med.medicamento}</Text> */}
                       <Text style={styles.timeText}>{med.hora}</Text>
