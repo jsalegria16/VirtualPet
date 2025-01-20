@@ -10,6 +10,10 @@ const PetComponent = () => {
 
   const { userId, tagInfo, nfcError, petStage, growPet, validateAndGrowPet, updateMedicationStatus, checkAndSetConfirmationTime } = useNfc(); // Obtener los valores del contexto NFC, incluyendo el estado de la mascota
 
+  const petTitle = petStage.includes('_happy')
+    ? '¡Tu mascota está feliz!'
+    : 'Tu mascota está triste. Ayúdala.';
+
   // const sendMessageToDevice = async (receiverToken, message) => {
   //   try {
   //     const response = await axios.post(
@@ -192,17 +196,18 @@ const PetComponent = () => {
 
   return (
     <View style={styles.petContainer}>
-      <Text style={styles.text}>Mascota Virtual</Text>
+      {/* <Text style={styles.text}>{'Mascota Virtual ' + petStage}</Text> */}
+      <Text style={styles.text}>{petTitle}</Text>
 
       <TouchableOpacity onPress={handlePress}>
         <Image
           source={
-            petStage === 'small' ?
-              require('../../assets/img/mascota_peque.jpeg')  // Imagen de la mascota pequeña
-              : petStage === 'medium' ?
-                require('../../assets/img/mascota_medi.jpeg') // Imagen de la mascota mediana
-                :
-                require('../../assets/img/mascota.jpeg')  // Imagen de la mascota grande
+            petStage === 'small_happy' ? require('../../assets/img/peque_feliz.png')
+              : petStage === 'small_sad' ? require('../../assets/img/peque_triste.png')
+                : petStage === 'medium_happy' ? require('../../assets/img/medi_feliz.png')
+                  : petStage === 'medium_sad' ? require('../../assets/img/medi_triste.png')
+                    : petStage === 'large_happy' ? require('../../assets/img/grande_feliz.png')
+                      : require('../../assets/img/grande_triste.png')
           }
           style={styles.petImage}  // Estilos para la imagen
         />

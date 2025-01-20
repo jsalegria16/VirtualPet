@@ -6,7 +6,7 @@ import { displayGrowthNotification } from '../notifications/notificationsService
 
 // Hook para manejar el crecimiento de la mascota
 const usePetGrowth = () => {
-  const [petStage, setPetStage] = useState('small'); // Estados: small, medium, large
+  const [petStage, setPetStage] = useState('small_happy'); // Estados: small, medium, large
   const [petHumor, setPetHumor] = useState('happy'); // Estados: happy, sad
   const [isInitialLoad, setIsInitialLoad] = useState(true); // Estado para evitar notificaciones en la carga inicial
 
@@ -21,13 +21,27 @@ const usePetGrowth = () => {
 
   // Cambiar el estado de la mascota
   const growPet = async () => {
+
     let newStage = petStage;
-    if (petStage === 'small') {
-      newStage = 'medium'; // Crecer de pequeño a mediano
-    } else if (petStage === 'medium') {
-      newStage = 'large'; // Crecer de mediano a grande
-    } else if (petStage === 'large') {
-      newStage = 'small'; // Si está en grande, volver a pequeño
+    // Manejo de transición de cualquier estado a uno feliz
+    if (petStage.includes('_sad')) {
+      // Si estaba triste, pasar al siguiente nivel feliz
+      if (petStage.startsWith('small')) {
+        newStage = 'medium_happy';
+      } else if (petStage.startsWith('medium')) {
+        newStage = 'large_happy';
+      } else if (petStage.startsWith('large')) {
+        newStage = 'small_happy';
+      }
+    } else {
+      // Si estaba feliz, avanzar al siguiente nivel feliz
+      if (petStage === 'small_happy') {
+        newStage = 'medium_happy';
+      } else if (petStage === 'medium_happy') {
+        newStage = 'large_happy';
+      } else if (petStage === 'large_happy') {
+        newStage = 'small_happy'; // Reinicia el ciclo a pequeño feliz
+      }
     }
 
     setPetStage(newStage); // Actualizar el estado local

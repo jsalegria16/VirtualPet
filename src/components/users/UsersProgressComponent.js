@@ -137,7 +137,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-
   },
   checkboxContainer: {
     flexDirection: 'column',
@@ -146,12 +145,15 @@ const styles = StyleSheet.create({
   },
   medicationText: {
     marginLeft: 10,
-    fontSize: 16,
+    fontWeight: 'bold',
+    fontSize: 18,
     color: 'black',
+
   },
   timeText: {
     marginTop: -5,
-    fontSize: 14,
+    fontWeight: 'bold',
+    fontSize: 18,
     color: 'black',
   },
   text: {

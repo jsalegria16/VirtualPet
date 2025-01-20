@@ -24,13 +24,11 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'space-between',
-    backgroundColor: '#f0f0f0',
   },
   text: {
     fontSize: 18,
     textAlign: 'center',
     margin: 0,
-    backgroundColor: '#f0f0f0',
   },
 });
 

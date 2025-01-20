@@ -52,6 +52,9 @@ Background
     Para esto, está funcionado, pero seguir probando para encontrar errores.
 
 Estado de humor de la mascota.
+    - Estados triste/feliz
+    - Por son no se validan todas las conformaciones
+    - El título 
 
 
 Consideraciones finales: 
