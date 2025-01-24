@@ -2,6 +2,7 @@ import firestore from '@react-native-firebase/firestore';
 import messaging from '@react-native-firebase/messaging';
 import { sendMessageToDevices } from '../notifications/sendMessages';
 import { displayConfirmationNotification } from '../notifications/notificationsServices';
+import { logNfcInteractionForUser } from '../../utils/LogsFirebase/logNfcInteraction';
 
 const useUpdateMedication = () => {
 
@@ -41,6 +42,9 @@ const useUpdateMedication = () => {
             await referencia.update({
                 [`confirmaciones.${medicationId}`]: updatedTimeEntry,
             });
+
+            // Aquí deberia enviar el log de NFC TAG
+            await logNfcInteractionForUser(userId, 'Interaccion NFC, confirmacion de la medicacion')
 
             //Notificacion local para confirmacion de toma de medicamentos
             await displayConfirmationNotification();

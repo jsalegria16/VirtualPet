@@ -57,7 +57,7 @@ const UsersProgressComponent = () => {
 
     // <ScrollView style={styles.scrollViewHistory}>
     <View style={styles.progressContainer}>
-      <Text style={styles.text}>Tu horario</Text>
+      <Text style={styles.text}>Tu horario de medicamentos</Text>
       <View style={styles.medicationContainer}>
         <Text style={styles.medicationText}> {medications.length > 0 ? (medications[0].Nombre) : ('Usuario')} </Text>
         {medications.length > 0 ? (
@@ -83,7 +83,7 @@ const UsersProgressComponent = () => {
         allUsersProgress.map(
           (user, useIndex) => (
             <View View key={useIndex} style={styles.medicationContainer} >
-              <Text style={styles.medicationText}>{user.name ? (user.name) : (NoName)}</Text>
+              <Text style={styles.medicationText2}>{user.name ? (user.name) : (NoName)}</Text>
               {
                 user.medications.map(
                   (med, medIndex) => (
@@ -96,7 +96,7 @@ const UsersProgressComponent = () => {
 
                       />
                       {/* <Text style={styles.medicationText}>{med.medicamento}</Text> */}
-                      <Text style={styles.timeText}>{med.hora}</Text>
+                      <Text style={styles.timeText2}>{med.hora}</Text>
                     </View>
                   )
                 )
@@ -117,9 +117,9 @@ const UsersProgressComponent = () => {
 
 const styles = StyleSheet.create({
   progressContainer: {
-    flex: 55,
+    flex: 60,
     justifyContent: 'space-between',
-    padding: 0,
+    marginRight: 2,
     backgroundColor: '#ffffff',
     borderRadius: 10,
   },
@@ -145,8 +145,14 @@ const styles = StyleSheet.create({
 
   },
   medicationText: {
-    marginLeft: 10,
+    marginLeft: 2,
     fontWeight: 'bold',
+    fontSize: 18,
+    color: 'black',
+
+  },
+  medicationText2: {
+    marginLeft: 2,
     fontSize: 18,
     color: 'black',
 
@@ -154,6 +160,11 @@ const styles = StyleSheet.create({
   timeText: {
     marginTop: -5,
     fontWeight: 'bold',
+    fontSize: 18,
+    color: 'black',
+  },
+  timeText2: {
+    marginTop: -5,
     fontSize: 18,
     color: 'black',
   },

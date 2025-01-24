@@ -101,7 +101,15 @@ const AppContent = () => {
       {isNameRegistered && (
         <NavigationContainer>
           <Tab.Navigator>
-            <Tab.Screen name="Tu mascota" component={HomeScreen} />
+            <Tab.Screen name="Tu mascota Virtual" component={HomeScreen}
+            // options={
+            //   {
+            //     tabBarIcon: ({ color, size }) => (
+            //       <Ionicons name="archive-outline" color={'blue'} size={20}> </Ionicons>
+            //     )
+            //   }
+            // }
+            />
             <Tab.Screen name="Ajustes" component={SettingsScreen} />
           </Tab.Navigator>
         </NavigationContainer>

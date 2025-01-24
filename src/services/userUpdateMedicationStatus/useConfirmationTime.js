@@ -19,7 +19,7 @@ const useConfirmationTime = (userId) => {
         try {
             const now = new Date();
             const medications = await getMedications(userId);
-            Alert.alert('Debug Message', ` nowTime: ${now}`);
+            // Alert.alert('Debug Message', ` nowTime: ${now}`);
             if (!medications) return;
 
             for (const med of medications) {

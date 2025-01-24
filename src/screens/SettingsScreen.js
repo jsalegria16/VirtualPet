@@ -5,7 +5,6 @@ import useNfcWithStorage from '../services/LocalStorage/useNfcWithStorage'; // I
 
 import { useNfc } from '../context/NfcContext'; // Importa el contexto
 import AddMedicationForm from '../components/MedManagement/AddMedicationForm';
-import ScanHistory from '../components/ScanHistory/ScanHistory';
 import MedicationHistory from '../components/MedManagement/MedicationHistory';
 
 
@@ -17,7 +16,6 @@ const SettingsScreen = () => {
       {/* para el formularios */}
       <AddMedicationForm />
       <MedicationHistory />
-      {/* <ScanHistory /> */}
     </View>
 
   );

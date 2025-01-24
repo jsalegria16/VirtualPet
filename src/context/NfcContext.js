@@ -21,7 +21,6 @@ export const NfcProvider = ({ children }) => {
   //Logica para hacer un ID unico de usuario.
   const { userId } = useUserId();
 
-
   //Logica para mostrar las etiquetas nfc registradas
   const { tagInfo } = useNfcWithStorage(); // Hook que obtiene los datos
 
@@ -42,9 +41,6 @@ export const NfcProvider = ({ children }) => {
 
   // Logica relacionada con las validaciones grupales de la toma del medicamento y crecimiento de la mascota
   const { validateAndGrowPet } = useDailyValidation(growPet); // Hook que maneja la validación de la toma de medicamentos
-
-  //Logica para manejar reset diario desde Firestore
-  // const { resetHour, resetMinute } = useDailyReset();
 
   //Logica para el intercambio de roles
   const { currentRoleUserId, currentRoleName, } = useRoleManagement(userId);
@@ -71,7 +67,6 @@ export const NfcProvider = ({ children }) => {
       //Historial de registros nfc
       tagInfo,
       // nfcError,
-      // scanHistory,
 
       //PAra el crecimento de la mascota
       petStage,      // Proporcionamos el estado actual de la mascota

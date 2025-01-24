@@ -19,7 +19,6 @@ const useNfcWithStorage = (userId) => {
         NfcManager.setEventListener(NfcEvents.DiscoverTag, async (tag) => {
           setTagInfo(tag); // Almacenar la información de la etiqueta en el estado
           // await saveTagToStorage(tag); // Guardar la etiqueta en AsyncStorage
-          await logNfcInteractionForUser(userId, 'Interacción NFC, Confirmacion del medicamento'); // Guardo el log en FB
           // await loadTagHistory(); // Cargar el historial después de guardar
         });
 
