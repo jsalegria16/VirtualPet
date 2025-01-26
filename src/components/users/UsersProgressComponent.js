@@ -60,21 +60,24 @@ const UsersProgressComponent = () => {
       <Text style={styles.text}>Tu horario de medicamentos</Text>
       <View style={styles.medicationContainer}>
         <Text style={styles.medicationText}> {medications.length > 0 ? (medications[0].Nombre) : ('Usuario')} </Text>
-        {medications.length > 0 ? (
-          medications.map((med, index) => (
-            <View key={index} style={styles.checkboxContainer}>
-              <CheckBox
-                value={med.status}
-                disabled={true}
-                tintColors={{ true: 'blue', false: 'black' }}
-              />
-              {/* <Text style={styles.medicationText}>{med.medicamento}</Text> */}
-              <Text style={styles.timeText}>{med.hora}</Text>
-            </View>
-          ))
-        ) : (
-          <Text style={styles.noDataText}>No tienes medicamentos registrados.</Text>
-        )}
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.horizontalScroll}>
+          {medications.length > 0 ? (
+            medications.map((med, index) => (
+              <View key={index} style={styles.checkboxContainer}>
+                <CheckBox
+                  value={med.status}
+                  disabled={true}
+                  tintColors={{ true: 'blue', false: 'black' }}
+                />
+                {/* <Text style={styles.medicationText}>{med.medicamento}</Text> */}
+                <Text style={styles.timeText}>{med.hora}</Text>
+              </View>
+            ))
+          ) : (
+            <Text style={styles.noDataText}>No tienes medicamentos registrados.</Text>
+          )}
+        </ScrollView>
+
       </View>
 
       <Text style={styles.text}>Horarios de los otros usuarios</Text>
@@ -84,23 +87,25 @@ const UsersProgressComponent = () => {
           (user, useIndex) => (
             <View View key={useIndex} style={styles.medicationContainer} >
               <Text style={styles.medicationText2}>{user.name ? (user.name) : (NoName)}</Text>
-              {
-                user.medications.map(
-                  (med, medIndex) => (
+              <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.horizontalScroll}>
+                {
+                  user.medications.map(
+                    (med, medIndex) => (
 
-                    <View key={medIndex} style={styles.checkboxContainer}>
-                      <CheckBox
-                        value={med.status}
-                        disabled // Los usuarios no pueden cambiar el progreso de otros
-                        tintColors={{ true: 'blue', false: 'black' }}
+                      <View key={medIndex} style={styles.checkboxContainer}>
+                        <CheckBox
+                          value={med.status}
+                          disabled // Los usuarios no pueden cambiar el progreso de otros
+                          tintColors={{ true: 'blue', false: 'black' }}
 
-                      />
-                      {/* <Text style={styles.medicationText}>{med.medicamento}</Text> */}
-                      <Text style={styles.timeText2}>{med.hora}</Text>
-                    </View>
+                        />
+                        {/* <Text style={styles.medicationText}>{med.medicamento}</Text> */}
+                        <Text style={styles.timeText2}>{med.hora}</Text>
+                      </View>
+                    )
                   )
-                )
-              }
+                }
+              </ScrollView>
             </View>
 
           )
@@ -123,11 +128,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     borderRadius: 10,
   },
-  scrollViewHistory: {
-    maxHeight: 200, // Establece una altura máxima para el scroll
-    width: '100%',
-    alignSelf: 'center'
-  },
   headerText: {
     fontSize: 24,
     fontWeight: 'bold',
@@ -139,10 +139,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  horizontalScroll: {
+    flexDirection: 'row',
+  },
   checkboxContainer: {
     flexDirection: 'column',
     alignItems: 'center',
-
+    paddingHorizontal: 5,
   },
   medicationText: {
     marginLeft: 2,

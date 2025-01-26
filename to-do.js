@@ -41,7 +41,7 @@ Notificaciones
     
         - (ya) Para el Crecimiento de la mascota diario
         - (ya) Cuando se confirma
-        - Para la Hora De tomar los medicamentos
+        - (ya) Para la Hora De tomar los medicamentos
         - (ya) Cuando Te recordaron que debes tomar los medicamentos (Rol recordaror)
 
     >> Triggers Para programar notifivations a cierta hora https://notifee.app/react-native/docs/triggers#creating-a-trigger-notification
@@ -52,9 +52,9 @@ Background
     Para esto, está funcionado, pero seguir probando para encontrar errores.
 
 Estado de humor de la mascota.
-    - Estados triste/feliz
-    - Por son no se validan todas las conformaciones
-    - El título 
+    - (ya) Estados triste/feliz
+    - (ya) Por son no se validan todas las conformaciones
+    - (ya) El título 
 
 
 Consideraciones finales: 
@@ -63,7 +63,7 @@ Consideraciones finales:
     - Icono de eliminar medicamentos.
     - Logs de los usos 
         - (ya) NFC interaction 
-        - Cambio de rol 
+        - (ya) Cambio de rol 
         - (Ya) Crecimiento/No crecimiento de la mascota. 
             - (ya) Si todos toman 
             - () Si no la toman (Por ahhora no será necesario)
