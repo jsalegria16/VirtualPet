@@ -62,7 +62,7 @@ const UsersProgressComponent = () => {
       <View style={styles.progressContainer}>
         <Text style={styles.text}>Tu horario de medicamentos</Text>
         <View style={styles.medicationContainer}>
-          <Text style={styles.medicationText}> {medications.length > 0 ? (medications[0].Nombre) : ('Resgistra el horario de tus medicamentos')} </Text>
+          <Text style={styles.medicationText}> {medications.length > 0 ? (medications[0].Nombre) : ('')} </Text>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.horizontalScroll}>
             {medications.length > 0 ? (
               medications.map((med, index) => (
@@ -208,6 +208,7 @@ const styles = StyleSheet.create({
   noDataText: {
     fontSize: 16,
     color: 'gray',
+    textAlign: 'center',
   },
 });
 

@@ -19,7 +19,7 @@ const PetComponent = () => {
     // Lógica adicional
     console.log('Pet pressed');
 
-    await checkAndSetConfirmationTime(validateAndGrowPet, updateMedicationStatus); // Pasa la función como argumento
+    // await checkAndSetConfirmationTime(validateAndGrowPet, updateMedicationStatus); // Pasa la función como argumento
     console.log('Lógica completada.');
   }
 
