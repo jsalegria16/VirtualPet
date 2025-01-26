@@ -26,8 +26,7 @@ const screenWidth = Dimensions.get('window').width;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'stretch',
+    justifyContent: 'flex-start',
     backgroundColor: '#f0f0f0',
   },
 });

@@ -46,12 +46,10 @@ const screenWidth = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
   petContainer: {
-    flex: 1,
+    flex: 55,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#ffffff',
-    margi: 5,
-    borderRadius: 10,
     padding: 0,
     paddingLeft: 10
 
@@ -62,7 +60,7 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   scrollViewHistory: {
-    maxHeight: 200, // Establece una altura máxima para el scroll
+    maxHeight: 270, // Establece una altura máxima para el scroll
     width: '100%',
     alignSelf: 'center'
   },
@@ -71,7 +69,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   historyTitle: {
-    fontSize: 18,
+    fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 10,
     color: 'black'
@@ -83,8 +81,9 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   historyText: {
-    fontSize: 14,
-    color: 'black'
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: 'black',
   },
 });
 

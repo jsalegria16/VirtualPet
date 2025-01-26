@@ -28,8 +28,11 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 18,
+    fontWeight: 'bold',
+    color: 'black',
     textAlign: 'center',
-    margin: 0,
+    marginTop: 0,
+    padding: 0
   },
 });
 

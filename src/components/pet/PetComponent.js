@@ -12,7 +12,7 @@ const PetComponent = () => {
 
   const petTitle = petStage.includes('_happy')
     ? '¡Tu mascota está feliz!'
-    : 'Tu mascota está triste. Ayúdala.';
+    : 'Tu mascota está triste. Ayúdala';
 
 
   const handlePress = async () => {

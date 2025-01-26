@@ -64,16 +64,16 @@ const AddMedicationForm = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 45,
     alignItems: 'center',
-    justifyContent: 'space-around',
+    justifyContent: 'flex-start',
     backgroundColor: '#fff',
   },
   form: {
     width: '80%',
   },
   label: {
-    marginTop: 20,
+    marginTop: 5,
     marginBottom: 5,
     fontSize: 24,
     fontWeight: 'bold',
