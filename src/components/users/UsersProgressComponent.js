@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 5,
     borderWidth: 2, // Grosor del borde
-    borderColor: '#007BFF', // Color del borde (puedes cambiarlo según tu diseño)
+    borderColor: 'black', // Color del borde (puedes cambiarlo según tu diseño)
     // backgroundColor: '#f9f}9f9', // Fondo para resaltar el contenedor
     marginHorizontal: 5, // Espaciado horizontal entre contenedores
     marginVertical: 5, // Espaciado vertical
