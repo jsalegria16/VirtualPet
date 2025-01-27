@@ -5,14 +5,10 @@ import { useNfc } from '../../context/NfcContext'; // Importa el contexto
 import firestore from '@react-native-firebase/firestore';
 
 import { generateDateObject } from '../../utils/generateDateObject/generateDateObject';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const UsersProgressComponent = () => {
   const { medications, userId } = useNfc();
   const [allUsersProgress, setAllUsersProgress] = useState([]);
-  const [visibleMedication, setVisibleMedication] = useState(null);
-
 
   // Función para cargar los medicamentos de todos los usuarios en tiempo real
   const subscribeToAllUsersMedications = () => {
@@ -58,81 +54,73 @@ const UsersProgressComponent = () => {
 
 
   return (
-    <GestureHandlerRootView style={{ flexDirection: 'row' }} >
-      <View style={styles.progressContainer}>
-        <Text style={styles.text}>Tu horario de medicamentos</Text>
-        <View style={styles.medicationContainer}>
-          <Text style={styles.medicationText}> {medications.length > 0 ? (medications[0].Nombre) : ('')} </Text>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.horizontalScroll}>
-            {medications.length > 0 ? (
-              medications.map((med, index) => (
-                // <TouchableWithoutFeedback
-                //   key={index}
-                //   onPressIn={() => setVisibleMedication(med.medicamento)}
-                //   onPressOut={() => setVisibleMedication(null)}
-                // >
-                <View key={index} style={styles.checkboxContainer}>
-                  <CheckBox
-                    value={med.status}
-                    disabled={true}
-                    tintColors={{ true: 'blue', false: 'black' }}
-                  />
-                  <Text style={styles.timeText}>{med.hora}</Text>
-                  {/* {visibleMedication === med.medicamento && (<Text style={styles.medicationText}>{med.medicamento}</Text>)} */}
-                  {<Text style={styles.medicationText}>{med.medicamento}</Text>}
-
-                </View>
-                // </TouchableWithoutFeedback>
-              ))
-            ) : (
-              <Text style={styles.noDataText}>No tienes medicamentos registrados.</Text>
-            )}
-          </ScrollView>
-
-        </View>
-
-        <Text style={styles.text2}>Horarios de los otros usuarios</Text>
-
-        {allUsersProgress.length > 0 ? (
-          allUsersProgress.map(
-            (user, useIndex) => (
-              <View View key={useIndex} style={styles.medicationContainer} >
-                <Text style={styles.medicationText2}>{user.name ? (user.name) : (NoName)}</Text>
-                <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.horizontalScroll}>
-                  {
-                    user.medications.map(
-                      (med, medIndex) => (
-
-                        <View key={medIndex} style={styles.checkboxContainer2}>
-                          <CheckBox
-                            value={med.status}
-                            disabled // Los usuarios no pueden cambiar el progreso de otros
-                            tintColors={{ true: 'blue', false: 'black' }}
-
-                          />
-                          {/* <Text style={styles.medicationText}>{med.medicamento}</Text> */}
-                          <Text style={styles.timeText2}>{med.hora}</Text>
-                        </View>
-                      )
-                    )
-                  }
-                </ScrollView>
+    <View style={styles.progressContainer}>
+      <Text style={styles.text}>Tu horario de medicamentos</Text>
+      <View style={styles.medicationContainer}>
+        <Text style={styles.medicationText}> {medications.length > 0 ? (medications[0].Nombre) : ('')} </Text>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.horizontalScroll}>
+          {medications.length > 0 ? (
+            medications.map((med, index) => (
+              <View key={index} style={styles.checkboxContainer}>
+                <CheckBox
+                  value={med.status}
+                  disabled={true}
+                  tintColors={{ true: 'blue', false: 'black' }}
+                />
+                <Text style={styles.timeText}>{med.hora}</Text>
+                {/* {visibleMedication === med.medicamento && (<Text style={styles.medicationText}>{med.medicamento}</Text>)} */}
+                {<Text style={styles.medicationText}>{med.medicamento}</Text>}
               </View>
 
-            )
+            ))
+          ) : (
+            <Text style={styles.noDataText}>No tienes medicamentos registrados.</Text>
+          )}
+        </ScrollView>
+
+      </View>
+
+      <Text style={styles.text2}>Horarios de los otros usuarios</Text>
+
+      {allUsersProgress.length > 0 ? (
+        allUsersProgress.map(
+          (user, useIndex) => (
+            <View View key={useIndex} style={styles.medicationContainer} >
+              <Text style={styles.medicationText2}>{user.name ? (user.name) : (NoName)}</Text>
+              <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.horizontalScroll}>
+                {
+                  user.medications.map(
+                    (med, medIndex) => (
+
+                      <View key={medIndex} style={styles.checkboxContainer2}>
+                        <CheckBox
+                          value={med.status}
+                          disabled // Los usuarios no pueden cambiar el progreso de otros
+                          tintColors={{ true: 'blue', false: 'black' }}
+
+                        />
+                        {/* <Text style={styles.medicationText}>{med.medicamento}</Text> */}
+                        <Text style={styles.timeText2}>{med.hora}</Text>
+                      </View>
+                    )
+                  )
+                }
+              </ScrollView>
+            </View>
+
           )
-        ) : (
-          <Text style={styles.noDataText}>No hay datos de otros usuarios.</Text>
-        )}
-      </View >
-    </GestureHandlerRootView>
+        )
+      ) : (
+        <Text style={styles.noDataText}>No hay datos de otros usuarios.</Text>
+      )}
+    </View >
 
   );
 };
 
 const styles = StyleSheet.create({
   progressContainer: {
-    flex: 60,
+    flex: 65,
     justifyContent: 'space-between',
     marginRight: 2,
     backgroundColor: '#ffffff',
@@ -155,12 +143,12 @@ const styles = StyleSheet.create({
   checkboxContainer: {
     flexDirection: 'column',
     alignItems: 'center',
-    paddingHorizontal: 5,
-    borderWidth: 2, // Grosor del borde
+    paddingHorizontal: 2,
+    borderWidth: 1.5, // Grosor del borde
     borderColor: 'black', // Color del borde (puedes cambiarlo según tu diseño)
     // backgroundColor: '#f9f}9f9', // Fondo para resaltar el contenedor
     marginHorizontal: 5, // Espaciado horizontal entre contenedores
-    marginVertical: 5, // Espaciado vertical
+    // marginVertical: 5, // Espaciado vertical
   },
   checkboxContainer2: {
     flexDirection: 'column',
@@ -196,8 +184,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'black',
     textAlign: 'center',
-    padding: 0,
-    margin: 0,
+
   },
   text2: {
     fontSize: 24,

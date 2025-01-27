@@ -50,7 +50,7 @@ const screenWidth = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
   petContainer: {
-    flex: 40,
+    flex: 35,
     justifyContent: 'flex-start',
     backgroundColor: '#ffffff',
     marginBottom: 1,
@@ -74,21 +74,6 @@ const styles = StyleSheet.create({
     padding: 0,
     alignSelf: 'center',  // Centra la imagen horizontalmente
 
-  },
-  tagMessage: {
-    marginTop: 0,
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: 'green',  // Texto en color verde para indicar la detección de la etiqueta
-    textAlign: 'center',  // Centrar el texto
-    maxWidth: '90%',      // Limitar el ancho del texto al 90% del contenedor
-  },
-  errorMessage: {
-    marginTop: -20,
-    fontSize: 8,
-    color: 'red',         // Mostrar el mensaje de error en color rojo
-    textAlign: 'center',  // Centrar el texto
-    maxWidth: '90%',      // Limitar el ancho del texto al 90% del contenedor
   },
 
 });
