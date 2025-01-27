@@ -1,23 +1,27 @@
+# Virtual Pet
+
+**Mascota Saludable** is a mobile application designed to improve medication adherence in older adults through a collaborative and gamified approach. The app uses **React Native**, **Firebase**, and **NFC tags** to provide an accessible, interactive, and motivating experience, where users take care of a virtual pet that grows based on collective progress in medication confirmation and intake.
 
 ---
 # Tabla de contenido
-- [Tabla de contenido](#tabla-de-contenido)
 - [Virtual Pet](#virtual-pet)
-  - [📋 Características Principales](#-características-principales)
+- [Tabla de contenido](#tabla-de-contenido)
+- [Virtual Pet](#virtual-pet-1)
+  - [📋 Key Features](#-key-features)
   - [🖼️ Capturas de Pantalla](#️-capturas-de-pantalla)
     - [**HomeScreen**](#homescreen)
     - [**SettingsScreen**](#settingsscreen)
-  - [🛠️ Tecnologías Utilizadas](#️-tecnologías-utilizadas)
+  - [🛠️ Technologies Used](#️-technologies-used)
 - [Getting Started](#getting-started)
-  - [Clona este repositorio:](#clona-este-repositorio)
-  - [Instala las dependecias:](#instala-las-dependecias)
-  - [Configura tu proyecto de Firebase:](#configura-tu-proyecto-de-firebase)
+    - [Clone the Repository:](#clone-the-repository)
+  - [Install Dependencies:](#install-dependencies)
+  - [Set Up Firebase:](#set-up-firebase)
   - [Step 1: Start the Metro Server](#step-1-start-the-metro-server)
   - [Step 2: Start your Application](#step-2-start-your-application)
     - [For Android](#for-android)
     - [For iOS](#for-ios)
   - [Step 3: Modifying your App](#step-3-modifying-your-app)
-- [📚 Documentación Técnica](#-documentación-técnica)
+- [📚 Technical Documentation](#-technical-documentation)
 - [🗂️ Estructura del Proyecto](#️-estructura-del-proyecto)
 - [📝 Licencia](#-licencia)
 
@@ -27,52 +31,52 @@
 
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
+**Mascota Saludable** is a mobile application designed to improve medication adherence in older adults through a collaborative and gamified approach. The app uses **React Native**, **Firebase**, and **NFC tags** to provide an accessible, interactive, and motivating experience, where users take care of a virtual pet that grows based on collective progress in medication confirmation and intake.
 
-**Mascota Saludable** es una aplicación móvil diseñada para mejorar y apoyar la adherencia a la medicación en adultos mayores mediante un enfoque colaborativo y gamificado. La aplicación utiliza **React Native**, **Firebase** y etiquetas **NFC** para ofrecer una experiencia accesible, interactiva y motivadora, donde los usuarios cuidan de una mascota virtual que crece con el progreso colectivo de la confiramcion y toma de sus medicamentos
 
-## 📋 Características Principales
+## 📋 Key Features
 
-1. **Registro de Medicamentos**: 
-   - Agrega medicamentos con horarios específicos desde la pantalla de configuración.
-   - Sincronización automática en tiempo real con Firebase.
+1. **Medication Registration**: 
+   - Add medications with specific schedules from the settings screen.
+   - Real-time synchronization with Firebase.
 
-2. **Confirmación de Medicamentos mediante NFC**:
-   - Los usuarios confirman la toma de medicamentos acercando una etiqueta NFC asignada.
+2. **Medication Confirmation via NFC**:
+   - Users confirm medication intake by tapping an assigned NFC tag.
 
-3. **Crecimiento de la Mascota Virtual**:
-   - La mascota refleja el progreso colectivo en tiempo real, mostrando cambios de estado y crecimiento.
+3. **Virtual Pet Growth**:
+   - The pet reflects collective progress in real-time, showing changes in state and growth.
 
-4. **Reinicio Diario Automático**:
-   - Se reinician las confirmaciones diarias a una hora definida, manteniendo los ciclos diarios organizados.
+4. **Automatic Daily Reset**:
+   - Daily confirmations are reset at a defined time, keeping the daily cycles organized.
 
-5. **Intercambio de Roles**:
-   - Los usuarios rotan roles, como el de recordador, para fomentar la colaboración grupal.
+5. **Role Rotation**:
+   - Users rotate roles, such as "reminder" roles, to promote group collaboration.
 
-6. **Notificaciones Personalizadas**:
-   - Recordatorios locales y grupales, integrados con Firebase Cloud Messaging y Notefee.
+6. **Personalized Notifications**:
+   - Local and group reminders integrated with Firebase Cloud Messaging and Notifee.
 
 ---
 
 ## 🖼️ Capturas de Pantalla
 
 ### **HomeScreen**
+![HomeScreen](./readme_imgs/home1.png)
 
-![alt text](./readme_imgs/home1.png)
 ### **SettingsScreen**
-![alt text](./readme_imgs/settings1.png)
+![SettingsScreen](./readme_imgs/settings1.png)
 
 ---
 
-## 🛠️ Tecnologías Utilizadas
+## 🛠️ Technologies Used
 
-- **React Native**: Desarrollo de la interfaz de usuario.
+- **React Native**: User interface development.
 - **Firebase**:
-  - Firestore Database: Almacenamiento en tiempo real.
-  - Firebase Cloud Functions: Automatización de procesos backend.
-  - Firebase Cloud Messaging: Gestión de notificaciones.
-- **React Navigation**: Navegación entre pantallas.
-- **react-native-nfc-manager**: Gestión de etiquetas NFC.
-- **Notifee**: Manejo avanzado de notificaciones.
+  - Firestore Database: Real-time storage.
+  - Firebase Cloud Functions: Backend automation.
+  - Firebase Cloud Messaging: Notification management.
+- **React Navigation**: Screen navigation.
+- **react-native-nfc-manager**: NFC tag management.
+- **Notifee**: Advanced notification handling.
 
 ---
 
@@ -80,26 +84,29 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
 
 >**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
 
-## Clona este repositorio:
+### Clone the Repository:
 
 ```bash
-# clona el repositorio
+# Clone the Repository:
 git clone https://github.com/tu-nombre-de-usuario/mascota-saludable.git
 ```
 
-## Instala las dependecias:
+## Install Dependencies:
 
 ```bash
-# Instalar dependencias
+# Install Dependencies
 npm install
 ```
-- Navega al directorio del proyecto:
+- Navigate to the Project Directory:
 ```bash
 cd VIRTUALPET
 ```
 
-## Configura tu proyecto de Firebase:
-- Visitar la documentacion oficial de [React Native Firebas](https://rnfirebase.io) 
+## Set Up Firebase:
+
+To integrate Firebase services into your project, you need to configure some Firebase services. These settings can be found on the official Firebase site for react-native.
+
+- Visit the React Native Firebase Documentation [React Native Firebase](https://rnfirebase.io) to configure Firebase services for your project.
 
 
 ## Step 1: Start the Metro Server
@@ -153,28 +160,27 @@ Now that you have successfully run the app, let's modify it.
 
    For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
 
-# 📚 Documentación Técnica
-El repositorio incluye:
-
-- Lógica del Crecimiento de la Mascota: Implementación en PetGrowthService.
-- Gestión de Medicamentos: Servicios personalizados para registro y confirmación.
-- Notificaciones: Configuración en NotificationService y Firebase Cloud Functions.
-- Integración NFC: Configuración en NfcContext utilizando react-native-nfc-manager.
+# 📚 Technical Documentation
+This repository includes:
+- Pet Growth Logic: Implemented in `PetGrowthService`.
+- Medication Management: Custom hooks for registration and confirmation.
+- Notifications: Configured in `NotificationService` and Firebase Cloud Functions.
+- NFC Integration: Managed in `NfcContext` using react-native-nfc-manager.
 
 # 🗂️ Estructura del Proyecto
 
 ```paintext
 src/
-├── components/      # Componentes visuales reutilizables
-├── context/         # Contextos de React para manejo global de estados
-├── services/        # Hooks y servicios personalizados (e.g., DailyValidation, RoleManagement)
-├── screens/         # Pantallas principales (HomeScreen, SettingsScreen)
-├── firebase/        # serviciosp ara manejar la lógica de firebase
-└── App.tsx          # Entrada principal de la aplicación
+├── components/      # Reusable visual components
+├── context/         # React contexts for global state management
+├── services/        # Custom hooks and services (e.g., DailyValidation, RoleManagement)
+├── screens/         # Main screens (HomeScreen, SettingsScreen)
+├── firebase/        # Firebase logic handlers
+└── App.tsx          # Application entry point
 
 ```
 
 # 📝 Licencia
-Este proyecto está bajo la Licencia MIT.
+This project is licensed under the MIT License.
 
 
