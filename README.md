@@ -23,7 +23,7 @@
   - [Step 3: Modifying your App](#step-3-modifying-your-app)
 - [📚 Technical Documentation](#-technical-documentation)
 - [🗂️ Estructura del Proyecto](#️-estructura-del-proyecto)
-- [📝 Licencia](#-licencia)
+- [📝 Licence](#-licence)
 
 ---
 
@@ -180,7 +180,7 @@ src/
 
 ```
 
-# 📝 Licencia
+# 📝 Licence
 This project is licensed under the MIT License.
 
 
