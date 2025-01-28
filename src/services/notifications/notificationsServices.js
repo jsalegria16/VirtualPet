@@ -20,7 +20,7 @@ export const displayGrowthNotification = async () => {
     // Mostrar la notificación
     await notifee.displayNotification({
         title: '¡Felicidades La mascota Creció!',
-        body: 'Todos tomaron sus medicamentos y tu mascota ha crecido.',
+        body: 'Todos tomaron sus medicamentos y la mascota ha crecido.',
         android: {
             channelId: channelId_pet_growth,
         },
@@ -35,8 +35,8 @@ export const displayRoleRimderNotification = async () => {
 
     // Crear el canal de notificación (Android)
     const channelId_Role_Reminder = await notifee.createChannel({
-        id: 'Role_Reminder',
-        name: 'Recordatorio por parte del ROL',
+        id: 'role_reminder',
+        name: 'Recordatorio por parte del Rol recordador',
         lights: true,
         vibration: true,
         importance: AndroidImportance.HIGH,
@@ -61,8 +61,8 @@ export const displayConfirmationNotification = async () => {
 
     // Crear el canal de notificación (Android)
     const channelId_Confirmate_notification = await notifee.createChannel({
-        id: 'Confirmate_notification',
-        name: 'Confirmacion de la notificacion',
+        id: 'confirmate_notification',
+        name: 'Confirmación de Medicamentos',
         lights: true,
         vibration: true,
         importance: AndroidImportance.HIGH,
@@ -72,7 +72,7 @@ export const displayConfirmationNotification = async () => {
     // Mostrar la notificación
     await notifee.displayNotification({
         title: 'Has tomado y confirmado tu medicación',
-        body: 'Los demás usuarios están tomando y confirmando sus medicamentos',
+        body: 'Estás tomando tus medicamentos a tiempo, sigue así',
         android: {
             channelId: channelId_Confirmate_notification,
         },

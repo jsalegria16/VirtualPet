@@ -64,19 +64,46 @@ exports.sendMessagesToUsers = functions.https.onRequest(async (req, res) => {
         return res.status(400).send({ error: 'Faltan parámetros necesarios' });
     }
 
+    // Configuración según el tipo de notificación
+    let notificationTitle, notificationBody, channelId, sound;
+
+    switch (type) {
+        case 'PET_GROWTH':
+            notificationTitle = '¡Tu mascota ha crecido!';
+            notificationBody = 'Todos tomaron sus medicamentos y la mascota ha crecido.';
+            channelId = 'pet_growth';
+            sound = 'pethadgrowth';
+            break;
+
+        case 'ROLE_REMINDER':
+            notificationTitle = 'Recordatorio de los otros usuarios ';
+            notificationBody = 'Los dem[as usuarios están tomando y confirmando sus medicamentos';
+            channelId = 'role_reminder';
+            sound = 'rolreminder';
+            break;
+
+
+        default:
+            return res.status(400).send({ error: 'Tipo de notificación desconocido' });
+    }
 
     const messagePayload = {
-        tokens: tokens,
         data: {
             type, // Identificador de la notificación para manejarla en la app
         },
-        android: {
-            priority: 'high', // Prioridad alta para garantizar entrega inmediata en segundo plano
+        notification: {
+            title: notificationTitle,
+            body: notificationBody,
         },
-
+        android: {
+            priority: 'high', // Prioridad alta para asegurar la entrega en segundo plano
+            notification: {
+                channelId: channelId,
+                sound: sound,
+            },
+        },
+        tokens: tokens, // Lista de tokens FCM
     };
-
-
 
     try {
         const response = await admin.messaging().sendEachForMulticast(messagePayload);

@@ -16,11 +16,6 @@ export const handleNotification = async (remoteMessage) => {
                 await displayRoleRimderNotification();
                 break;
 
-            // Agrega más casos aquí para otros tipos de notificaciones en el futuro
-            case 'REMINDER':
-                console.log('Recordatorio recibido');
-                break;
-
             default:
                 console.log('Tipo de notificación desconocido:', type);
                 break;
