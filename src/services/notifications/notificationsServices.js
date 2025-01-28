@@ -94,7 +94,7 @@ export const displayScheduleMedicationReminder = async (medicationName, time) =>
 
     // Crear el canal de notificación (Android)
     const setupNotificationChannel = await notifee.createChannel({
-        id: 'medication-reminders',
+        id: 'medication_reminders',
         name: 'Recordatorios de Medicamentos',
         lights: true,
         vibration: true,

@@ -66,14 +66,14 @@ exports.sendMessagesToUsers = functions.https.onRequest(async (req, res) => {
 
 
     const messagePayload = {
-        // notification: { // si coloco esto, suna por defecto el celular
-        //     title: '¡Tu mascota ha crecido!',
-        //     body: `La mascota ha crecido.`,
-        // },
-        data: {
-            type, // Clave identificadora para la notificación
-        },
         tokens: tokens,
+        data: {
+            type, // Identificador de la notificación para manejarla en la app
+        },
+        android: {
+            priority: 'high', // Prioridad alta para garantizar entrega inmediata en segundo plano
+        },
+
     };
 
 

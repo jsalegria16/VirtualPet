@@ -10,6 +10,9 @@ import useConfirmationTime from '../services/userUpdateMedicationStatus/useConfi
 import useUpdateMedication from '../services/userUpdateMedicationStatus/useUpdateMedicationStatus';
 import useRoleManagement from '../services/RoleManagement/useRoleManagement';
 
+import messaging from '@react-native-firebase/messaging';
+import { handleNotification } from '../services/notifications/notificationHandler';
+
 const NfcContext = createContext();
 
 export const useNfc = () => {
@@ -58,6 +61,17 @@ export const NfcProvider = ({ children }) => {
 
   }, [tagInfo]); // Se dispara cada vez que cambia la etiqueta NFC y la fecha de confirmación
 
+
+  // Configura messaging().onMessage dentro del contexto
+  React.useEffect(() => {
+    const unsubscribe = messaging().onMessage(
+      async (remoteMessage) => {
+        console.log('Mensaje recibido en primer planoo:', remoteMessage.data, remoteMessage.notification);
+        await handleNotification(remoteMessage);
+      }
+    );
+    return unsubscribe; // Limpia el evento al desmontar
+  }, []);
 
   return (
     <NfcContext.Provider value={{
