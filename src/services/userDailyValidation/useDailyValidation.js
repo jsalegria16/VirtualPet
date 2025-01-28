@@ -66,61 +66,6 @@ const useDailyValidation = (growPet) => {
         }
     };
 
-    // const resetConfirmations = async () => {
-    //     try {
-    //         console.log('Reiniciando confirmaciones para todos los usuarios...');
-    //         const usersRef = firestore().collection('Usuarios');
-    //         const usersSnapshot = await usersRef.get();
-    //         //Logica adicional por si la mascota no crece
-    //         let allConfirmed = true;//Logica adicional por si la mascota no crece
-
-    //         usersSnapshot.forEach(async (doc) => {
-    //             const userConfirmations = doc.data()?.confirmaciones || {};
-
-    //             const resetConfirmations = Object.fromEntries(
-    //                 Object.entries(userConfirmations).map(([medicationId, medicationData]) => [
-    //                     medicationId,
-    //                     { ...medicationData, status: false },
-    //                 ])
-    //             );
-
-    //             await firestore().collection('Usuarios').doc(doc.id).update({
-    //                 confirmaciones: resetConfirmations,
-    //             });
-
-    //             //Logica adicional por si la mascota no crece
-    //             // Verificar si hay al menos un status "false"
-    //             Object.values(userConfirmations).forEach((conf) => {
-    //                 console.log(conf);
-    //                 if (conf.status === false) {
-    //                     allConfirmed = false;
-    //                 }
-    //             });
-
-
-    //         });
-    //         console.log("Confirmaciones reiniciadas.");
-
-    //         //Logica adicional por si la mascota no crece
-    //         const referenciaMascota = firestore().collection('PetState').doc('mascota');
-    //         const petStateSnapshot = await referenciaMascota.get();
-    //         const petState = petStateSnapshot.data()?.estado;
-
-    //         if (!allConfirmed) {
-    //             // Cambiar el estado a "triste" si no se confirmaron todos
-    //             const sadState = petState.includes('_happy') ? petState.replace('_happy', '_sad') : petState;
-    //             await referenciaMascota.update({ estado: sadState });
-    //             console.log('La mascota ahora está triste:', sadState);
-    //         } else {
-    //             console.log('Todos los medicamentos fueron confirmados. El estado no cambia.');
-    //         }
-
-    //     } catch (error) {
-    //         console.error('Error al reiniciar confirmaciones:', error);
-    //     }
-    // };
-
-    // Escucha los cambios en Firestore Para las horas de reinicio de estados
 
     const resetConfirmations = async () => {
         try {
