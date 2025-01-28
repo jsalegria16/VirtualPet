@@ -17,6 +17,9 @@ const { initializeApp } = require("firebase-admin/app");
 const { getFirestore } = require("firebase-admin/firestore");
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
+const moment = require('moment-timezone'); // Requiere instalar moment-timezone
+
+
 initializeApp();
 const firestore = admin.firestore();
 
@@ -225,3 +228,110 @@ const rotateRole = async () => {
         console.error('Error al rotar rol:', error);
     }
 };
+
+// Función programada para enviar notificaciones en la hora exacta del medicamento
+exports.medicationReminderByHour = onSchedule('* * * * *', async (event) => {
+    const TIME_ZONE = 'America/Bogota';
+
+    const now = moment().tz(TIME_ZONE);
+    let currentHour = now.hour();
+    const currentMinute = now.minute();
+    const currentPeriod = currentHour >= 12 ? 'PM' : 'AM'; // Determinar AM o PM
+
+    // Convertir formato de 24 horas a 12 horas
+    if (currentHour > 12) currentHour -= 12;
+    if (currentHour === 0) currentHour = 12; // Manejo especial para 12 AM y 12 PM
+
+    console.log(`Buscando medicamentos programados para: ${currentHour}:${currentMinute} ${currentPeriod}`);
+
+
+    try {
+        const usersRef = firestore.collection('Usuarios');
+        const usersSnapshot = await usersRef.get();
+
+        for (const userDoc of usersSnapshot.docs) {
+
+            try {
+                const userData = userDoc.data();
+                const fcmToken = userData.fcmToken;
+                const confirmaciones = userData.confirmaciones;
+
+                if (!fcmToken || !confirmaciones) {
+                    console.warn(`El usuario ${userDoc.id} no tiene fcmToken o confirmaciones.`);
+                    continue;
+                }
+
+                console.log(` [INFO] Revisando usuario: ${userData.Nombre || userDoc.id}`);
+
+                // Convertir formato Firestore a formato comparable con la hora actual
+                const medicationsForNow = Object.entries(confirmaciones).filter(([medId, medData]) => {
+                    if (!medData.hora) return false;
+                    let normalizedTimeString = medData.hora
+                        .normalize("NFKC") // Normaliza caracteres Unicode
+                        .replace(/[\u200B-\u200F\u00A0]/g, '') // Elimina espacios invisibles Unicode (zero-width, NBSP, etc.)
+                        .replace(/\s+/g, ' ') // Convierte múltiples espacios en un solo espacio
+                        .trim(); // Elimina espacios al inicio y al final
+                    console.log(`🔍 [DEBUG] Hora procesada para comparación: "${normalizedTimeString}"`);
+
+                    // Extraer la parte numérica y el periodo AM/PM
+                    const timeMatch = normalizedTimeString.match(/^(\d{1,2}):(\d{2})\s?(AM|PM)$/);
+
+                    if (!timeMatch) {
+                        console.warn(`⚠️ [WARN] Formato de hora incorrecto para medicamento ${medData.medicamento}: "${medData.hora}"`);
+                        return false;
+                    }
+
+                    const medHour = parseInt(timeMatch[1], 10);
+                    const medMinute = parseInt(timeMatch[2], 10);
+                    const medPeriod = timeMatch[3];
+
+                    console.log(`🔍 [INFO] Comparando medicamento ${medData.medicamento}: ${medHour}:${medMinute} ${medPeriod} con ${currentHour}:${currentMinute} ${currentPeriod}`);
+
+                    // Verificar si la hora y el minuto coinciden
+                    return medHour === currentHour && medMinute === currentMinute && medPeriod === currentPeriod;
+                });
+
+                if (medicationsForNow.length === 0) {
+                    console.log(`[INFO] No hay medicamentos programados para esta hora en el usuario ${userData.Nombre}`);
+                    continue;
+                }
+                // Enviar notificación si hay medicamentos para esta hora
+                for (const [medId, medData] of medicationsForNow) {
+                    const message = {
+                        token: fcmToken,
+                        notification: {
+                            title: `Recordatorio: ${medData.medicamento}`,
+                            body: `Es hora de tomar tu medicamento ${medData.medicamento} (${medData.hora}). y no olvides confirmarlo`,
+                        },
+                        android: {
+                            priority: 'high',
+                            notification: {
+                                channelId: 'medication_reminders',
+                                sound: 'medicationtime',
+                            },
+                        },
+                        data: {
+                            type: 'MEDICATION_REMINDER',
+                            medicationName: medData.medicamento,
+                            time: medData.hora,
+                        },
+                    };
+
+                    console.log(` [INFO] Enviando notificación a ${userData.Nombre} para el medicamento: ${medData.medicamento} (${medData.hora})`);
+
+                    try {
+                        await admin.messaging().send(message);
+                        console.log(` [SUCCESS] Notificación enviada con éxito a ${userData.Nombre} (${medData.medicamento})`);
+                    } catch (error) {
+                        console.error(`❌ [ERROR] Fallo al enviar notificación a ${userData.Nombre || userDoc.id}:`, error);
+                    }
+                }
+
+            } catch (error) {
+                console.error(` [ERROR] Error procesando usuario ${userDoc.id}:`, error);
+            }
+        }
+    } catch (error) {
+        console.error('Error al procesar recordatorios de medicamentos:', error);
+    }
+});

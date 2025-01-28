@@ -61,14 +61,6 @@ const useMedManagement = (userId) => {
       await addConfirmation(userId, times, false, medName)
       //addConfirmation(userId, times.toString(), false, medName)
 
-      // Convertir el string de hora a un objeto Date
-      const notificationTime = generateDateObject(times);
-
-      console.log('hora progamanaa del medicamento ', medName, ': ', notificationTime);
-
-      // Programar la notificación
-      await displayScheduleMedicationReminder(medName, notificationTime);
-
       setTimes('');
       setMedName('');
       alert('Medicamento agregado');

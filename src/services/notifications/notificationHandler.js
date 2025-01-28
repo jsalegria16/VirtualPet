@@ -1,10 +1,9 @@
-import { displayGrowthNotification, displayRoleRimderNotification } from './notificationsServices'
+import { displayGrowthNotification, displayMedicationReminder, displayRoleRimderNotification } from './notificationsServices'
 
 export const handleNotification = async (remoteMessage) => {
 
     try {
-        const { type } = remoteMessage.data;
-
+        const { medicationName, time, type } = remoteMessage;
 
         switch (type) {
             case 'PET_GROWTH':
@@ -16,6 +15,9 @@ export const handleNotification = async (remoteMessage) => {
                 await displayRoleRimderNotification();
                 break;
 
+            case 'MEDICATION_REMINDER':
+                await displayMedicationReminder(medicationName, time);
+                break
             default:
                 console.log('Tipo de notificación desconocido:', type);
                 break;

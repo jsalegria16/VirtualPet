@@ -67,7 +67,7 @@ export const NfcProvider = ({ children }) => {
     const unsubscribe = messaging().onMessage(
       async (remoteMessage) => {
         console.log('Mensaje recibido en primer planoo:', remoteMessage.data, remoteMessage.notification);
-        await handleNotification(remoteMessage);
+        await handleNotification(remoteMessage.data);
       }
     );
     return unsubscribe; // Limpia el evento al desmontar

@@ -124,3 +124,31 @@ export const displayScheduleMedicationReminder = async (medicationName, time) =>
     );
 
 };
+
+// Nofiticacion de recordatorio de toma de medicamento
+export const displayMedicationReminder = async (medicationName, time) => {
+
+    await notifee.requestPermission(); // Solicitar permisos (solo iOS, Android lo maneja automáticamente)
+
+
+    // Crear el canal de notificación (Android)
+    const setupNotificationChannel = await notifee.createChannel({
+        id: 'medication_reminders',
+        name: 'Recordatorios de Medicamentos',
+        lights: true,
+        vibration: true,
+        importance: AndroidImportance.HIGH,
+        sound: 'medicationtime',
+
+    });
+
+
+    await notifee.displayNotification({
+        title: `Recordatorio: ${medicationName}`,
+        body: `Es hora de tomar tu medicamento ${medicationName} (${time}). y no olvides confirmarlo`,
+        android: {
+            channelId: setupNotificationChannel,
+        },
+    })
+
+};
