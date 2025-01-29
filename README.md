@@ -23,6 +23,7 @@
   - [Modifying your App](#modifying-your-app)
 - [3. 📚 Technical Documentation](#3--technical-documentation)
 - [🗂️ Project Structure](#️-project-structure)
+  - [Modular diagram](#modular-diagram)
 - [📝 Licence](#-licence)
 
 ---
@@ -155,7 +156,7 @@ This is one way to run your app — you can also run it directly from within And
 
 Now that you have successfully run the app, let's modify it.
 
-1. Open `App.tsx` or any file od the project in your text editor of choice and edit some lines.
+1. Open `App.tsx` or any file of the project in your text editor of choice and edit some lines.
 2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
 
    For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
@@ -210,6 +211,18 @@ src/
 └── App.tsx          # Application entry point
 
 ```
+## Modular diagram
+The Modular System Structure describes the organization of the main components of the Healthy Pet application, as well as the interactions between them to ensure its cohesive functioning. The Healthy Pet system was designed under a modular approach to ensure greater flexibility, scalability and maintainability. Each module of the system fulfills a specific function, ensuring a separation between logic, user interaction and Backend operations and functions.
+
+The system is organized into three main components:
+
+**Mobile Frontend:** Developed in React Native, it provides a friendly and accessible interface for users. The main screens include the ``"HomeScreen"`` where the virtual pet and users' progress is displayed, and the ``"SettingsScreen"`` where medications and schedules are configured. 
+
+**Backend Services:** Implemented through Firebase, including Firestore for real-time storage, and Cloud Functions in conjunction with Firebase Cloud Messages for handling the different notifications present in the application.
+
+**Intermediate services:** Custom hooks and utilities built with React Native that manage system logic, such as "useMedManagement" which handles all medication-related management and "useUpdateMedicationStatus" for medication confirmations by users.
+
+![alt text](./readme_imgs/diagram.png)
 
 # 📝 Licence
 This project is licensed under the MIT License.
