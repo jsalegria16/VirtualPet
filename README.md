@@ -6,13 +6,13 @@
 # Table of Contents
 - [Virtual Pet](#virtual-pet)
 - [Table of Contents](#table-of-contents)
-- [1. Virtual Pet](#1-virtual-pet)
+- [1. 🐰 Virtual Pet](#1--virtual-pet)
   - [1.1 📋 Key Features](#11--key-features)
   - [1.2 🖼️ screenshots](#12-️-screenshots)
     - [**HomeScreen**](#homescreen)
     - [**SettingsScreen**](#settingsscreen)
   - [1.3 🛠️ Technologies Used](#13-️-technologies-used)
-- [2. Getting Started](#2-getting-started)
+- [2. 🛣️ Getting Started](#2-️-getting-started)
   - [Clone the Repository:](#clone-the-repository)
   - [Install Dependencies:](#install-dependencies)
   - [Set Up Firebase:](#set-up-firebase)
@@ -22,13 +22,13 @@
     - [For iOS](#for-ios)
   - [Modifying your App](#modifying-your-app)
 - [3. 📚 Technical Documentation](#3--technical-documentation)
-- [🗂️ Project Structure](#️-project-structure)
+- [4. 🗂️ Project Structure](#4-️-project-structure)
   - [Modular diagram](#modular-diagram)
-- [📝 Licence](#-licence)
+- [5. 📝 Licence](#5--licence)
 
 ---
 
-# 1. Virtual Pet
+# 1. 🐰 Virtual Pet
 
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
@@ -81,7 +81,7 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
 
 ---
 
-# 2. Getting Started
+# 2. 🛣️ Getting Started
 
 >**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
 
@@ -198,7 +198,7 @@ The Mascota Saludable project integrates several custom hooks and services to en
   - Local notifications for medication reminders rely solely on the Notifee library.
 
 
-# 🗂️ Project Structure
+# 4. 🗂️ Project Structure
 Inside the project folder you can fin the src folder which contains all the conponets and neccesary logic. 
 
 ```paintext
@@ -224,7 +224,7 @@ The system is organized into three main components:
 
 ![alt text](./readme_imgs/diagram.png)
 
-# 📝 Licence
+# 5. 📝 Licence
 This project is licensed under the MIT License.
 
 
